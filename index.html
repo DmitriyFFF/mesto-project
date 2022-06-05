@@ -11,31 +11,90 @@
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
+
+  <section class="form form_opened">
+    <form class="form__profile">
+      <h2 class="form__title">Редактировать профиль</h2>
+      <fieldset class="form__input">
+        <input type="text" class="form__item" value="Жак-Ив кусто" placeholder="Имя">
+      </fieldset>
+      <fieldset class="form__input">
+        <input type="text" class="form__item" value="Исследователь океана" placeholder="О себе">
+      </fieldset>
+      <input type="button" class="form__button" value="Сохранить">
+      <!--<fieldset class="form__handlers"> </fieldset>-->
+      <img class="form__close-image button-opacity" src="./images/close-form.png" alt="">
+    </form>
+
+  </section>
+
   <header class="header">
     <img src="./images/logo.svg" alt="" class="header__logo">
   </header>
 
   <main class="content">
     <section class="profile">
+      <div class="profile__data">
+        <img src="./images/image.png" alt="" class="profile__avatar">
+        <div class="profile__info">
+          <div class="profile__edit">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button button-opacity">
+              <img src="./images/Vector.svg" alt="" class="profile__pencil">
+            </button>
+          </div>
+          <p class="profile__description">Исследователь океана</p>
+        </div>
+      </div>
+      <button class="profile__button button-opacity">
+        <img src="./images/profile_plus.svg" alt="" class="profile__plus">
+      </button>
 
     </section>
     <section class="elements">
-      <!--
-        <div class="place">
-          <img src="./images/kirill-pershin-1088404-unsplash.png" alt="" class="place__image">
-          <div class="info">
-            <h2 class="place__name">Карачаевск</h2>
-            <img class="place__button" src="./images/Vector.svg" alt="">
-          </div>
+      <div class="card">
+        <img src="./images/Karachaevsk_1.png" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__place">Карачаевск</h2>
+          <img class="card__button" src="./images/Vector_heart.svg" alt="">
         </div>
-        <div class="place">
-          <img src="./images/kirill-pershin-1404681-unsplash.png" alt="" class="place__image">
-          <div class="info">
-            <h2 class="place__name">Гора Эльбрус</h2>
-            <img class="place__button" src="./images/Vector.svg" alt="">
-          </div>
+      </div>
+      <div class="card">
+        <img src="./images/Elbrus_1.png" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__place">Гора Эльбрус</h2>
+          <img class="card__button" src="./images/Vector_heart.svg" alt="">
         </div>
-      -->
+      </div>
+      <div class="card">
+        <img src="./images/Dombai_1.png" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__place">Домбай</h2>
+          <img class="card__button" src="./images/Vector_heart.svg" alt="">
+        </div>
+      </div>
+      <div class="card">
+        <img src="./images/Elbrus_1.png" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__place">Гора Эльбрус</h2>
+          <img class="card__button" src="./images/Vector_heart.svg" alt="">
+        </div>
+      </div>
+      <div class="card">
+        <img src="./images/Dombai_1.png" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__place">Домбай</h2>
+          <img class="card__button" src="./images/Vector_heart.svg" alt="">
+        </div>
+      </div>
+      <div class="card">
+        <img src="./images/Karachaevsk_1.png" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__place">Карачаевск</h2>
+          <img class="card__button" src="./images/Vector_heart.svg" alt="">
+        </div>
+      </div>
+
 
     </section>
   </main>

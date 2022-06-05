@@ -1,0 +1,12 @@
+.card__button {
+  margin: 0;
+  /*transition: fill .2s;*/
+}
+
+.card__button:hover {
+  opacity: .5;
+}
+
+/*.card__button:active {
+  background-color: #000;
+}*/
