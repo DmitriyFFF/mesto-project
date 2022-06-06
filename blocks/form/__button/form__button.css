@@ -5,7 +5,7 @@
   padding: 0;
   width: calc(100% - 72px);
   height: 50px;
-  margin: 48px 36px 37px 36px;
+  margin: 48px 36px 37px;
   color: #fff;
   background-color: #000;
   border-radius: 2px;
@@ -14,4 +14,14 @@
 
 .form__button:hover {
   opacity: .8;
+}
+
+@media screen and (max-width: 620px) {
+  .form__button {
+    width: calc(100% - 44px);
+    height: 46px;
+    margin: 45px 22px 25px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
 }

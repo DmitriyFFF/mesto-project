@@ -6,3 +6,16 @@
   max-width: 880px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 920px) {
+  .profile {
+    max-width: calc(100% - 54px);
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile {
+    flex-direction: column;
+    max-width: 100%;
+  }
+}

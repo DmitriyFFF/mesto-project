@@ -6,4 +6,13 @@
   color: #fff;
   border: 2px solid #fff;
   background-color: #000;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__button {
+    max-width: 282px;
+    margin: 0 auto;
+    width: calc(100% - 19px);
+  }
 }

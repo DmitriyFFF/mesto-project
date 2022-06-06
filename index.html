@@ -1,106 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Описание "><!--Добавить-->
-  <meta name="keywords" content="HTML5, CSS">
+  <meta name="description" content="Созайте профиль и добавляйте фотографии мест, где побывали или хотели бы побывать"><!--Добавить-->
+  <meta name="keywords" content="HTML5, CSS3">
   <meta name="author" content="Dmitriy Ferafontov">
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="page">
+<body class="root">
+  <div class="page">
+    <section class="popup popup_opened">
+      <form class="form">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <fieldset class="form__input">
+          <input type="text" class="form__item" value="Жак-Ив кусто" placeholder="Имя">
+        </fieldset>
+        <fieldset class="form__input">
+          <input type="text" class="form__item" value="Исследователь океана" placeholder="О себе">
+        </fieldset>
+        <input type="button" class="form__button" value="Сохранить">
+        <img class="form__close-image button-opacity" src="./images/close-form.png" alt="Кнопка закрытия формы регистрации.">
+      </form>
+    </section>
 
-  <section class="form form_opened">
-    <form class="form__profile">
-      <h2 class="form__title">Редактировать профиль</h2>
-      <fieldset class="form__input">
-        <input type="text" class="form__item" value="Жак-Ив кусто" placeholder="Имя">
-      </fieldset>
-      <fieldset class="form__input">
-        <input type="text" class="form__item" value="Исследователь океана" placeholder="О себе">
-      </fieldset>
-      <input type="button" class="form__button" value="Сохранить">
-      <!--<fieldset class="form__handlers"> </fieldset>-->
-      <img class="form__close-image button-opacity" src="./images/close-form.png" alt="">
-    </form>
+    <header class="header">
+      <img src="./images/logo.svg" alt="Логотип." class="header__logo">
+    </header>
 
-  </section>
-
-  <header class="header">
-    <img src="./images/logo.svg" alt="" class="header__logo">
-  </header>
-
-  <main class="content">
-    <section class="profile">
-      <div class="profile__data">
-        <img src="./images/image.png" alt="" class="profile__avatar">
-        <div class="profile__info">
-          <div class="profile__edit">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button button-opacity">
-              <img src="./images/Vector.svg" alt="" class="profile__pencil">
-            </button>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__data">
+          <img src="./images/image.png" alt="Фото профиля." class="profile__avatar">
+          <div class="profile__info">
+            <div class="profile__edit">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button button-opacity">
+                <img src="./images/Vector.svg" alt="Кнопка редактирования профиля." class="profile__pencil">
+              </button>
+            </div>
+            <p class="profile__description">Исследователь океана</p>
           </div>
-          <p class="profile__description">Исследователь океана</p>
         </div>
-      </div>
-      <button class="profile__button button-opacity">
-        <img src="./images/profile_plus.svg" alt="" class="profile__plus">
-      </button>
+        <button class="profile__button button-opacity">
+          <img src="./images/profile_plus.svg" alt="Кнопка для добавления фотографий." class="profile__plus">
+        </button>
+      </section>
 
-    </section>
-    <section class="elements">
-      <div class="card">
-        <img src="./images/Karachaevsk_1.png" alt="" class="card__image">
-        <div class="card__info">
-          <h2 class="card__place">Карачаевск</h2>
-          <img class="card__button" src="./images/Vector_heart.svg" alt="">
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Elbrus_1.png" alt="" class="card__image">
-        <div class="card__info">
-          <h2 class="card__place">Гора Эльбрус</h2>
-          <img class="card__button" src="./images/Vector_heart.svg" alt="">
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Dombai_1.png" alt="" class="card__image">
-        <div class="card__info">
-          <h2 class="card__place">Домбай</h2>
-          <img class="card__button" src="./images/Vector_heart.svg" alt="">
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Elbrus_1.png" alt="" class="card__image">
-        <div class="card__info">
-          <h2 class="card__place">Гора Эльбрус</h2>
-          <img class="card__button" src="./images/Vector_heart.svg" alt="">
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Dombai_1.png" alt="" class="card__image">
-        <div class="card__info">
-          <h2 class="card__place">Домбай</h2>
-          <img class="card__button" src="./images/Vector_heart.svg" alt="">
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Karachaevsk_1.png" alt="" class="card__image">
-        <div class="card__info">
-          <h2 class="card__place">Карачаевск</h2>
-          <img class="card__button" src="./images/Vector_heart.svg" alt="">
-        </div>
-      </div>
+      <section class="elements">
+        <ul class="elements__gallery">
+          <li class="card">
+            <img src="./images/Karachaevsk_1.png" alt="Старая церковь в горах Карачаево-Черкессии." class="card__image">
+            <div class="card__info">
+              <h2 class="card__place">Карачаевск</h2>
+              <div class="card__button"></div>
+            </div>
+          </li>
+          <li class="card">
+            <img src="./images/Elbrus_1.png" alt="Гора Эльбрус на закате." class="card__image">
+            <div class="card__info">
+              <h2 class="card__place">Гора Эльбрус</h2>
+              <div class="card__button"></div>
+            </div>
+          </li>
+          <li class="card">
+            <img src="./images/Dombai_1.png" alt="Горы Домбая." class="card__image">
+            <div class="card__info">
+              <h2 class="card__place">Домбай</h2>
+              <div class="card__button"></div>
+            </div>
+          </li>
+          <li class="card">
+            <img src="./images/Elbrus_1.png" alt="Гора Эльбрус на закате." class="card__image">
+            <div class="card__info">
+              <h2 class="card__place">Гора Эльбрус</h2>
+              <div class="card__button card__button_active"></div>
+            </div>
+          </li>
+          <li class="card">
+            <img src="./images/Dombai_1.png" alt="Горы Домбая." class="card__image">
+            <div class="card__info">
+              <h2 class="card__place">Домбай</h2>
+              <div class="card__button"></div>
+            </div>
+          </li>
+          <li class="card">
+            <img src="./images/Karachaevsk_1.png" alt="Старая церковь в горах Карачаево-Черкессии." class="card__image">
+            <div class="card__info">
+              <h2 class="card__place">Карачаево-Черкессия</h2>
+              <div class="card__button"></div>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
 
+    <footer class="footer">
+      <small class="footer__copyright">&copy; 2022 Mesto Russia</small>
+    </footer>
+  </div>
 
-    </section>
-  </main>
-
-  <footer class="footer">
-    <small class="footer__copyright">&copy; 2022 Mesto Russia</small>
-  </footer>
 </body>
 </html>

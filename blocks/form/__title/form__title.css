@@ -5,3 +5,11 @@
   padding: 34px 64px 46px 36px;
   margin: 0;
 }
+
+@media screen and (max-width: 620px) {
+  .form__title {
+    font-size: 18px;
+    line-height: 1.22;
+    padding: 25px 22px 75px 22px;
+  }
+}
