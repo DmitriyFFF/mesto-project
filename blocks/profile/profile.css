@@ -10,6 +10,7 @@
 @media screen and (max-width: 920px) {
   .profile {
     max-width: calc(100% - 54px);
+    justify-content: space-evenly;
   }
 }
 

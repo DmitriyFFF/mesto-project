@@ -1,0 +1,22 @@
+.form__close {
+  position: absolute;
+  background-image: url('../../../images/close-form.png');
+  background-position: center;
+  background-size: cover;
+  background-color: #0000;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  top: calc(50% - 205px);
+  right: calc(50% - 255px);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 620px) {
+  .form__close {
+    width: 20px;
+    height: 20px;
+    top: calc(50% - 197px);
+    right: calc(50% - 141px);
+  }
+}
