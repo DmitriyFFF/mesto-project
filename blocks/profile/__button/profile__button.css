@@ -1,12 +1,12 @@
 .profile__button {
   background-image: url('../../../images/profile_add_button.svg');
   background-position: center;
-  background-size: cover;
+  background-size: 22px;
   background-repeat: no-repeat;
   width: 150px;
   height: 50px;
   margin: 0;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   background-color: #000;
   border-radius: 2px;
   cursor: pointer;
@@ -14,8 +14,7 @@
 
 @media screen and (max-width: 620px) {
   .profile__button {
-    background-image: url('../../../images/profile_add_button_mobile.svg');
-    max-width: 282px;
-    width: 100%;
+    background-size: 16px;
+    width: 282px;
   }
 }
