@@ -7,8 +7,8 @@
   border: none;
   width: 32px;
   height: 32px;
-  top: calc(50% - 205px);
-  right: calc(50% - 255px);
+  top: -40px;
+  right: -40px;
   cursor: pointer;
 }
 
@@ -16,7 +16,7 @@
   .form__close {
     width: 20px;
     height: 20px;
-    top: calc(50% - 197px);
-    right: calc(50% - 141px);
+    top: -36px;
+    right: 0;
   }
 }

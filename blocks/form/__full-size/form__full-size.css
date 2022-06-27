@@ -1,0 +1,8 @@
+.form__full-size {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0;
+  max-width: 75vw;
+  max-height: 75vh;
+}

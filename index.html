@@ -29,17 +29,18 @@
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button type="button" class="profile__button button-opacity" name="add_photo"></button>
+        <button type="button" class="profile__add-card-button button-opacity" name="add_photo"></button>
       </section>
 
       <section class="elements">
-        <ul class="elements__gallery">
+        <ul class="elements__gallery"><!--cardContainer-->
           <li class="card">
             <img src="./images/Karachaevsk_1.png" alt="Старая церковь в горах Карачаево-Черкессии." class="card__image">
             <div class="card__info">
               <h2 class="card__place">Карачаевск</h2>
               <button type="button" class="card__button" name="like"></button>
             </div>
+            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
           </li>
           <li class="card">
             <img src="./images/Elbrus_1.png" alt="Гора Эльбрус на закате." class="card__image">
@@ -47,6 +48,7 @@
               <h2 class="card__place">Гора Эльбрус</h2>
               <button type="button" class="card__button" name="like"></button>
             </div>
+            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
           </li>
           <li class="card">
             <img src="./images/Dombai_1.png" alt="Горы Домбая." class="card__image">
@@ -54,13 +56,15 @@
               <h2 class="card__place">Домбай</h2>
               <button type="button" class="card__button" name="like"></button>
             </div>
+            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
           </li>
           <li class="card">
             <img src="./images/Elbrus_1.png" alt="Гора Эльбрус на закате." class="card__image">
             <div class="card__info">
               <h2 class="card__place">Гора Эльбрус</h2>
-              <button type="button" class="card__button card__button_active" name="like"></button>
+              <button type="button" class="card__button" name="like"></button>
             </div>
+            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
           </li>
           <li class="card">
             <img src="./images/Dombai_1.png" alt="Горы Домбая." class="card__image">
@@ -68,6 +72,7 @@
               <h2 class="card__place">Домбай</h2>
               <button type="button" class="card__button" name="like"></button>
             </div>
+            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
           </li>
           <li class="card">
             <img src="./images/Karachaevsk_1.png" alt="Старая церковь в горах Карачаево-Черкессии." class="card__image">
@@ -75,6 +80,7 @@
               <h2 class="card__place">Карачаево-Черкессия</h2>
               <button type="button" class="card__button" name="like"></button>
             </div>
+            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
           </li>
         </ul>
       </section>
@@ -84,21 +90,55 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
-      <form action="#" class="form" name="form_profile">
+    <div class="popup popup_profile">
+      <form action="#" class="form form__profile" name="form_profile">
         <h2 class="form__title">Редактировать профиль</h2>
         <fieldset class="form__input">
-          <input type="text" class="form__item form__item_name" name="name_profile" value="Жак-Ив Кусто" placeholder="Имя">
+          <input type="text" class="form__item form__item_name" name="name_profile" value="" placeholder="Имя">
         </fieldset>
         <fieldset class="form__input">
-          <input type="text" class="form__item form__item_about" name="about_profile" value="Исследователь океана" placeholder="О себе">
+          <input type="text" class="form__item form__item_about" name="about_profile" value="" placeholder="О себе">
         </fieldset>
         <button type="submit" class="form__button" name="save_data">Сохранить</button>
         <button type="button" class="form__close button-opacity" name="close_form"></button>
       </form>
-    </section>
+    </div>
+
+    <div class="popup popup_gallery">
+      <form action="#" class="form form__cards" name="form_cards">
+        <h2 class="form__title">Новое место</h2>
+        <fieldset class="form__input">
+          <input type="text" class="form__item form__item_place" name="name_place" value="" placeholder="Название">
+        </fieldset>
+        <fieldset class="form__input">
+          <input type="text" class="form__item form__item_url" name="url_place" value="" placeholder="Ссылка на картинку">
+        </fieldset>
+        <button type="submit" class="form__button form__button_create-card" name="create_card">Создать</button>
+        <button type="button" class="form__close button-opacity" name="close_form"></button>
+      </form>
+    </div>
+
+    <div class="popup popup__view-photo">
+      <figure class="form__full-size">
+        <img src="" alt="" class="form__image">
+        <figcaption class="form__name-image"></figcaption>
+        <button type="button" class="form__close button-opacity" name="close_form"></button>
+      </figure>
+    </div>
   </div>
 
+  <template id="card-template">
+    <li class="card">
+      <img class="card__image">
+      <div class="card__info">
+        <h2 class="card__place"></h2>
+        <button class="card__button"></button>
+      </div>
+      <button class="card__delete-button"></button>
+    </li>
+  </template>
+
   <script src="./scripts/index.js"></script>
+
 </body>
 </html>
