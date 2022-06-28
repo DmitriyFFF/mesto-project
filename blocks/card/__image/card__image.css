@@ -6,4 +6,9 @@
   object-position: center;
   object-fit: cover;
   cursor: pointer;
+  transition: transform .9s ease-in-out;
+}
+
+.card__image:hover {
+  transform: scale(1.05);
 }
