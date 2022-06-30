@@ -1,4 +1,4 @@
-.form__close {
+.popup__close {
   position: absolute;
   background-image: url('../../../images/close_form_vector.svg');
   background-position: center;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 620px) {
-  .form__close {
+  .popup__close {
     width: 20px;
     height: 20px;
     top: -36px;

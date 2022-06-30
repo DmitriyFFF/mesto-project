@@ -34,54 +34,6 @@
 
       <section class="elements">
         <ul class="elements__gallery">
-          <li class="card">
-            <img src="" alt="" class="card__image">
-            <div class="card__info">
-              <h2 class="card__place"></h2>
-              <button type="button" class="card__button" name="like"></button>
-            </div>
-            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
-          </li>
-          <li class="card">
-            <img src="" alt="" class="card__image">
-            <div class="card__info">
-              <h2 class="card__place"></h2>
-              <button type="button" class="card__button" name="like"></button>
-            </div>
-            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
-          </li>
-          <li class="card">
-            <img src="" alt="" class="card__image">
-            <div class="card__info">
-              <h2 class="card__place"></h2>
-              <button type="button" class="card__button" name="like"></button>
-            </div>
-            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
-          </li>
-          <li class="card">
-            <img src="" alt="" class="card__image">
-            <div class="card__info">
-              <h2 class="card__place"></h2>
-              <button type="button" class="card__button" name="like"></button>
-            </div>
-            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
-          </li>
-          <li class="card">
-            <img src="" alt="" class="card__image">
-            <div class="card__info">
-              <h2 class="card__place"></h2>
-              <button type="button" class="card__button" name="like"></button>
-            </div>
-            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
-          </li>
-          <li class="card">
-            <img src="" alt="" class="card__image">
-            <div class="card__info">
-              <h2 class="card__place"></h2>
-              <button type="button" class="card__button" name="like"></button>
-            </div>
-            <button type="button" class="card__delete-button button-opacity" name="delete"></button>
-          </li>
         </ul>
       </section>
     </main>
@@ -90,40 +42,47 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
 
-    <div class="popup popup_profile">
-      <form action="#" class="form form__profile" name="form_profile">
-        <h2 class="form__title">Редактировать профиль</h2>
-        <fieldset class="form__input">
-          <input type="text" class="form__item form__item_name" name="name_profile" value="" placeholder="Имя">
-        </fieldset>
-        <fieldset class="form__input">
-          <input type="text" class="form__item form__item_about" name="about_profile" value="" placeholder="О себе">
-        </fieldset>
-        <button type="submit" class="form__button" name="save_data">Сохранить</button>
-        <button type="button" class="form__close button-opacity" name="close_form"></button>
-      </form>
+    <div class="popup popup_type_profile">
+      <div class="popup__container">
+        <form action="#" class="form form_type_profile" name="form_profile">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <fieldset class="form__input">
+            <input type="text" class="form__item form_input_name" name="name_profile" value="" placeholder="Имя">
+          </fieldset>
+          <fieldset class="form__input">
+            <input type="text" class="form__item form_input_about" name="about_profile" value="" placeholder="О себе">
+          </fieldset>
+          <button type="submit" class="form__button" name="save_data">Сохранить</button>
+        </form>
+        <button type="button" class="popup__close button-opacity" name="close_form"></button>
+      </div>
+
     </div>
 
-    <div class="popup popup_gallery">
-      <form action="#" class="form form__cards" name="form_cards">
-        <h2 class="form__title">Новое место</h2>
-        <fieldset class="form__input">
-          <input type="text" class="form__item form__item_place" name="name_place" value="" placeholder="Название">
-        </fieldset>
-        <fieldset class="form__input">
-          <input type="text" class="form__item form__item_url" name="url_place" value="" placeholder="Ссылка на картинку">
-        </fieldset>
-        <button type="submit" class="form__button form__button_create-card" name="create_card">Создать</button>
-        <button type="button" class="form__close button-opacity" name="close_form"></button>
-      </form>
+    <div class="popup popup_type_gallery">
+      <div class="popup__container">
+        <form action="#" class="form form_type_cards" name="form_cards">
+          <h2 class="form__title">Новое место</h2>
+          <fieldset class="form__input">
+            <input type="text" class="form__item form_input_place" name="name_place" value="" placeholder="Название">
+          </fieldset>
+          <fieldset class="form__input">
+            <input type="text" class="form__item form_input_url" name="url_place" value="" placeholder="Ссылка на картинку">
+          </fieldset>
+          <button type="submit" class="form__button form_button_create-card" name="create_card">Создать</button>
+        </form>
+        <button type="button" class="popup__close button-opacity" name="close_form"></button>
+      </div>
     </div>
 
-    <div class="popup popup__view-photo">
-      <figure class="form__full-size">
-        <img src="" alt="" class="form__image">
-        <figcaption class="form__name-image"></figcaption>
-        <button type="button" class="form__close button-opacity" name="close_form"></button>
-      </figure>
+    <div class="popup popup_type_photo">
+      <div class="popup__container">
+        <figure class="popup__full-size">
+          <img src="#" alt="" class="popup__image">
+          <figcaption class="popup__image-name"></figcaption>
+        </figure>
+        <button type="button" class="popup__close button-opacity" name="close_popup"></button>
+      </div>
     </div>
   </div>
 
@@ -132,9 +91,9 @@
       <img class="card__image">
       <div class="card__info">
         <h2 class="card__place"></h2>
-        <button class="card__button"></button>
+        <button type="button" class="card__button"></button>
       </div>
-      <button class="card__delete-button"></button>
+      <button type="button" class="card__delete-button"></button>
     </li>
   </template>
 
