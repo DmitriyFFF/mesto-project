@@ -47,10 +47,10 @@
         <form action="#" class="form form_type_profile" name="form_profile">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__input">
-            <input type="text" class="form__item form_input_name" name="name_profile" value="" placeholder="Имя">
+            <input type="text" class="form__item form__item_input_name" name="name_profile" value="" placeholder="Имя" required>
           </fieldset>
           <fieldset class="form__input">
-            <input type="text" class="form__item form_input_about" name="about_profile" value="" placeholder="О себе">
+            <input type="text" class="form__item form__item_input_about" name="about_profile" value="" placeholder="О себе" required>
           </fieldset>
           <button type="submit" class="form__button" name="save_data">Сохранить</button>
         </form>
@@ -64,12 +64,12 @@
         <form action="#" class="form form_type_cards" name="form_cards">
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__input">
-            <input type="text" class="form__item form_input_place" name="name_place" value="" placeholder="Название">
+            <input type="text" class="form__item form__item_input_place" name="name_place" value="" placeholder="Название" required>
           </fieldset>
           <fieldset class="form__input">
-            <input type="text" class="form__item form_input_url" name="url_place" value="" placeholder="Ссылка на картинку">
+            <input type="url" class="form__item form__item_input_url" name="url_place" value="" placeholder="Ссылка на картинку" required>
           </fieldset>
-          <button type="submit" class="form__button form_button_create-card" name="create_card">Создать</button>
+          <button type="submit" class="form__button" name="create_card">Создать</button>
         </form>
         <button type="button" class="popup__close button-opacity" name="close_form"></button>
       </div>
@@ -97,6 +97,7 @@
     </li>
   </template>
 
+  <script src="./scripts/initialCards.js"></script>
   <script src="./scripts/index.js"></script>
 
 </body>
