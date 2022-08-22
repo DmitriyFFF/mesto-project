@@ -15,10 +15,10 @@ const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const formProfile = document.querySelector('.form_type_profile');
 const formCards = document.querySelector('.form_type_cards');
-const userNameInput = formProfile.querySelector('.form__item_input_name');
-const aboutUserInput = formProfile.querySelector('.form__item_input_about');
-const urlInput = formCards.querySelector('.form__item_input_url');
-const namePlaceInput = formCards.querySelector('.form__item_input_place');
+const userNameInput = formProfile.querySelector('.form__input_type_name');
+const aboutUserInput = formProfile.querySelector('.form__input_type_about');
+const urlInput = formCards.querySelector('.form__input_type_url');
+const namePlaceInput = formCards.querySelector('.form__input_type_place');
 
 //***Функции открывания и закрывания форм по кнопкам ***//
 
@@ -135,3 +135,40 @@ closePhotoButton.addEventListener('click', () => {
 initialCards.forEach(function(item){
   addCard(cardsGallery, createCard(item.link, item.name));
 });
+
+
+
+//***Валидация***//
+
+
+const formElement = document.querySelector('.form');
+const formInput = formElement.querySelector('.form__input');
+const formError = formElement.querySelector(`.${formInput.id}-error`);
+
+const showInputError = (element, errorMessage) => {
+  element.classList.add('form__input_type_error');
+  formError.textContent = errorMessage;
+  formError.classList.add('form__input-error_active');
+};
+
+const hideInputError = (element) => {
+  element.classList.remove('form__input_type_error');
+  formError.classList.remove('form__input-error_active');
+  formError.textContent = '';
+};
+
+const isValid = () => {
+  if (!formInput.validity.valid) {
+    showInputError(formInput, formInput.validationMessage);
+  } else {
+    hideInputError(formInput);
+  }
+};
+
+formElement.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+});
+
+formInput.addEventListener('input', isValid);
+
+
