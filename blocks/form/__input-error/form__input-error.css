@@ -1,5 +1,6 @@
 .form__input-error {
-  display: none;
+  visibility: hidden;
+  display: inline-block;
   font-size: 12px;
   line-height: 1.25;
   color: #ff0000;
