@@ -1,3 +1,16 @@
+
+
+
+
+
+
+
+
+
+const formProfile = document.querySelector('.form_type_profile');
+
+
+
 const initialCards = [
   {
     name: 'Байкал',
@@ -24,3 +37,5 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1637579176819-36455abf2e97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
   }
   ];
+
+export {popupList, popupProfile, popupGallery, popupPhoto, openAddCardButton, openProfileButton, cardsGallery, cardTemplate, popupImage, popupImageName, profileName, profileDescription, formProfile, formCards, userNameInput, aboutUserInput, urlInput, namePlaceInput, initialCards};
