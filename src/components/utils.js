@@ -1,4 +1,3 @@
-//import {popupList} from './variables';
 import {closePopup} from './modal.js';
 
 const popupList = document.querySelectorAll('.popup');

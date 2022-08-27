@@ -1,4 +1,3 @@
-
 //***Функция, показывающая сообщение ошибки поля***//
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
