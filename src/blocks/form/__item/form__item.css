@@ -1,0 +1,7 @@
+.form__item {
+  height: 44px;
+}
+
+.form__item:not(:last-child) {
+  margin-bottom: 13px;
+}
