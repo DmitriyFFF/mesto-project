@@ -8,17 +8,16 @@
   <meta name="keywords" content="HTML5, CSS3">
   <meta name="author" content="Dmitriy Ferafontov">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="root">
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип Место.">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип Место.">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__data">
-          <img class="profile__avatar" src="./images/image.png" alt="Фото профиля.">
+          <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="Фото профиля.">
           <div class="profile__info">
             <div class="profile__edit">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -43,7 +42,7 @@
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__input-container">
             <div class="form__item">
-              <input class="form__input form__input_type_name" id="name-input" type="text" name="name_profile" value="" placeholder="Имя" minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-я -]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелыРазрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+              <input class="form__input form__input_type_name" id="name-input" type="text" name="name_profile" value="" placeholder="Имя" minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-я -]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
               <span class="name-input-error form__input-error"></span>
             </div>
             <div class="form__item">
@@ -95,10 +94,5 @@
       <button class="card__delete-button" type="button"></button>
     </li>
   </template>
-  <script type="module" src="./components/modal.js"></script>
-  <script type="module" src="./components/utils.js"></script>
-  <script type="module" src="./components/card.js"></script>
-  <script type="module" src="./components/validate.js"></script>
-  <script type="module" src="./components/index.js"></script>
 </body>
 </html>
