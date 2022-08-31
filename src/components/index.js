@@ -1,7 +1,43 @@
 import {initialCards,addCard, createCard} from './card.js';
-import {formProfile, formCards, cardsGallery, handleCardFormSubmit, handleProfileFormSubmit} from './modal.js';
-import {enableValidation} from './validate.js';
+import {formProfile, formCards, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup} from './modal.js';
+import {enableValidation, validateSettings} from './validate.js';
 import '../pages/index.css';
+
+//***Функция сохранения информации о пользователе из формы***//
+function handleProfileFormSubmit (evt) {
+  evt.preventDefault();
+
+  const buttonSubmit = formProfile.querySelector('.form__button');
+
+  profileName.textContent = userNameInput.value;
+  profileDescription.textContent = aboutUserInput.value;
+
+  if (!buttonSubmit.hasAttribute('disabled')) {
+    buttonSubmit.setAttribute('disabled', true)
+  } else {
+    buttonSubmit.removeAttribute('disabled')
+  }
+
+  closePopup(popupProfile);
+}
+
+//***Функция добавления новой карточки из формы***//
+function handleCardFormSubmit (evt) {
+  evt.preventDefault();
+  const buttonSubmit = formCards.querySelector('.form__button');
+
+  addCard(cardsGallery, createCard(urlInput.value, namePlaceInput.value));
+
+  formCards.reset();
+
+  if (!buttonSubmit.hasAttribute('disabled')) {
+    buttonSubmit.setAttribute('disabled', true)
+  } else {
+    buttonSubmit.removeAttribute('disabled')
+  }
+
+  closePopup(popupGallery);
+}
 
 //***Обработка отправки форм***//
 formProfile.addEventListener('submit', handleProfileFormSubmit);
@@ -13,14 +49,4 @@ initialCards.forEach(function(item){
 });
 
 //***Валидация форм***//
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-});
-
-
-
+enableValidation(validateSettings);

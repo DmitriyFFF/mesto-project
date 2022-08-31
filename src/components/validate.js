@@ -1,16 +1,24 @@
+export const validateSettings = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
 //***Функция, показывающая сообщение ошибки поля***//
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__input_type_error');
+  inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
+  errorElement.classList.add(errorClass);
 }
 
 //***Функция, скрывающая сообщение ошибки поля***//
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 }
 
@@ -23,16 +31,16 @@ function isValid(formElement, inputElement) {
   }
 
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, validateSettings.inputErrorClass,validateSettings.errorClass);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, validateSettings.inputErrorClass,validateSettings.errorClass);
   }
 }
 
 //***Функция, добавляющая обработчики полям формы***//
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__button')
+function setEventListeners(formElement, inputSelector, submitButtonSelector) {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const buttonElement = formElement.querySelector(submitButtonSelector)
 
   toggleButtonState(inputList, buttonElement);
 
@@ -41,18 +49,6 @@ function setEventListeners(formElement) {
       isValid(formElement, inputElement);
       toggleButtonState(inputList, buttonElement);
     });
-  });
-}
-
-//***Функция, добавляющая обработчики всем формам***//
-export function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.form'));
-
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
   });
 }
 
@@ -70,4 +66,13 @@ function toggleButtonState(inputList, buttonElement) {
   } else {
     buttonElement.removeAttribute('disabled');
   }
+}
+
+//***Функция, добавляющая обработчики всем формам***//
+export function enableValidation(validateSettings) {
+  const formList = document.querySelectorAll(validateSettings.formSelector);
+
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, validateSettings.inputSelector, validateSettings.submitButtonSelector);
+  });
 }

@@ -1,20 +1,16 @@
 import {closePopup} from './modal.js';
 
-const popupList = document.querySelectorAll('.popup');
-
 export function keyHandler (evt) {
-  popupList.forEach(popupElement => {
-    if(evt.key === 'Escape') {
-      closePopup(popupElement);
-    }
-  });
+  if(evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
 }
 
 export function overlayHandler (evt) {
-  popupList.forEach(popupElement => {
-    if((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
-      closePopup(popupElement);
-    }
-  });
+  if((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
 }
 
