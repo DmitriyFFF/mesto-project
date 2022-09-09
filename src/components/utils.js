@@ -9,8 +9,7 @@ export function keyHandler (evt) {
 
 export function overlayHandler (evt) {
   if((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
+    closePopup(evt.currentTarget);
   }
 }
 

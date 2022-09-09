@@ -1,5 +1,5 @@
 import { openPopup } from './modal.js';
-export const initialCards = [
+/*export const initialCards = [
   {
     name: 'Байкал',
     link: 'https://images.unsplash.com/photo-1571649425554-e94518844c37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'
@@ -24,7 +24,7 @@ export const initialCards = [
     name: 'Домбай',
     link: 'https://images.unsplash.com/photo-1637579176819-36455abf2e97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
   }
-  ];
+  ];*/
 
 const cardTemplate = document.querySelector('#card-template').content;
 const popupPhoto = document.querySelector('.popup_type_photo');

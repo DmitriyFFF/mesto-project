@@ -8,6 +8,7 @@ export const urlInput = formCards.querySelector('.form__input_type_url');
 export const namePlaceInput = formCards.querySelector('.form__input_type_place');
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
+export const profileAvatar = document.querySelector('.profile__avatar');
 export const userNameInput = formProfile.querySelector('.form__input_type_name');
 export const aboutUserInput = formProfile.querySelector('.form__input_type_about');
 export const popupProfile = document.querySelector('.popup_type_profile');
@@ -29,6 +30,17 @@ export function closePopup(popupElement) {
 
   document.removeEventListener('keydown', keyHandler);
   popupElement.removeEventListener('click', overlayHandler);
+}
+
+export function disableButton () {
+  const buttonsSubmit = document.querySelectorAll('.form__button');
+  buttonsSubmit.forEach((item) => {
+    if ((!item.hasAttribute('disabled')) || (item.closest('.form__button'))){
+      item.setAttribute('disabled', true)
+    } else {
+      item.removeAttribute('disabled')
+    }
+  })
 }
 
 //***Открывание попапов***//
