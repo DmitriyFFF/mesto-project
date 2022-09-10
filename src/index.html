@@ -83,13 +83,31 @@
         <button class="popup__close button-opacity" type="button" name="close_popup"></button>
       </div>
     </div>
+    <div class="popup popup_type_avatar">
+      <div class="popup__container">
+        <form class="form form_type_avatar form__avatar" action="#" name="form_avatar" novalidate>
+          <h2 class="form__title">Обновить аватар</h2>
+          <fieldset class="form__input-container form__input-container_type_avatar">
+            <div class="form__item">
+              <input class="form__input form__input_type_avatar" id="avatar-input" type="url" name="url_avatar" value="" placeholder="Ссылка на картинку" required>
+              <span class="avatar-input-error form__input-error"></span>
+            </div>
+          </fieldset>
+          <button class="form__button" type="submit" name="save_avatar">Сохранить</button>
+        </form>
+        <button class="popup__close button-opacity" type="button" name="close_form"></button>
+      </div>
+    </div>
   </div>
   <template id="card-template">
     <li class="card">
       <img class="card__image">
       <div class="card__info">
         <h2 class="card__place"></h2>
-        <button class="card__button" type="button"></button>
+        <div class="card__likes">
+          <button class="card__button" type="button"></button>
+          <span class="card__like-counter"></span>
+        </div>
       </div>
       <button class="card__delete-button" type="button"></button>
     </li>
