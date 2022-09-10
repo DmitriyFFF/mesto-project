@@ -8,11 +8,14 @@ export const urlInput = formCards.querySelector('.form__input_type_url');
 export const namePlaceInput = formCards.querySelector('.form__input_type_place');
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
+export const formAvatar = document.querySelector('.form_type_avatar');
+export const avatarInput = formAvatar.querySelector('.form__input_type_avatar')
 export const profileAvatar = document.querySelector('.profile__avatar');
 export const userNameInput = formProfile.querySelector('.form__input_type_name');
 export const aboutUserInput = formProfile.querySelector('.form__input_type_about');
 export const popupProfile = document.querySelector('.popup_type_profile');
 export const popupGallery = document.querySelector('.popup_type_gallery');
+export const popupAvatar = document.querySelector('.popup_type_avatar');
 const openProfileButton = document.querySelector('.profile__edit-button');
 const openAddCardButton = document.querySelector('.profile__add-card-button');
 
@@ -36,9 +39,9 @@ export function disableButton () {
   const buttonsSubmit = document.querySelectorAll('.form__button');
   buttonsSubmit.forEach((item) => {
     if ((!item.hasAttribute('disabled')) || (item.closest('.form__button'))){
-      item.setAttribute('disabled', true)
+      item.setAttribute('disabled', true);
     } else {
-      item.removeAttribute('disabled')
+      item.removeAttribute('disabled');
     }
   })
 }
@@ -53,3 +56,7 @@ openProfileButton.addEventListener('click', () => {
 openAddCardButton.addEventListener('click', () => {
   openPopup(popupGallery);
 });
+
+profileAvatar.addEventListener('click', () => {
+  openPopup(popupAvatar);
+})

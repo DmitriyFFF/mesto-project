@@ -16,7 +16,6 @@ export const getProfile = () => {
       if (res.ok) {
         return res.json();
       }
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
 }
@@ -31,7 +30,6 @@ export const getInitialCards = () => {
       if (res.ok) {
         return res.json();
       }
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
 }
@@ -50,19 +48,18 @@ export const editProfile = (nameInput, aboutInput) => {
       if (res.ok) {
         return res.json();
       }
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
 }
 
 //Добавление новой карточки
-export const addNewCard = (nameCard, urlCard) => {
+export const addNewCard = (urlCard, nameCard) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
-      name: nameCard,
-      link: urlCard
+      name: nameCard.value,
+      link: urlCard.value
     })
   })
     .then(res => {
@@ -72,3 +69,94 @@ export const addNewCard = (nameCard, urlCard) => {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
 }
+
+//Запрос на удаление карточек пользователя
+export const deleteCardApi = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+}
+
+//Добавление лайка
+export const addLikeApi = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+}
+
+//Снятие лайка
+export const deleteLikeApi = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+}
+
+//Счетчик добавления лайка
+export function addLike(cardId, likesCounter) {
+  addLikeApi(cardId)
+    .then((res) => {
+      likesCounter.textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//Счетчик снятия лайка
+export function deleteLike(cardId, likesCounter) {
+  deleteLikeApi(cardId)
+    .then((res) => {
+      likesCounter.textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//Удаление карточек
+export function deleteCard(cardId, cardElement) {
+  deleteCardApi(cardId)
+    .then(cardElement.remove())
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//Редактирование аватара
+export const patchAvatar = (avatarInput) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: `${avatarInput.value}`
+    })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+}
+
