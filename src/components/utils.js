@@ -20,3 +20,19 @@ export function renderLoading(button, textButton, isLoading) {
     button.textContent = textButton;
   }
 }
+
+export function checkResponse (res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+export function toggleLikeButtom(result, likesCounter, likeButton, likeStatus) {
+  likesCounter.textContent = result.likes.length
+  if (!likeStatus) {
+    likeButton.classList.remove('card__button_active');
+  } else {
+    likeButton.classList.add('card__button_active');
+  }
+}

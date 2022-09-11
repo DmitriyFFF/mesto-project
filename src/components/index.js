@@ -2,9 +2,43 @@ import {addCard, createCard} from './card.js';
 import {formProfile, formCards, formAvatar, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, profileAvatar, avatarInput, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup, disableButton, popupAvatar, profileSubmitButton, cardsSubmitButton, avatarSubmitButton} from './modal.js';
 import {enableValidation, validateSettings} from './validate.js';
 import '../pages/index.css';
-import { renderLoading } from './utils.js';
-import { getInitialCards, getProfile, editProfile, addNewCard, addLike, deleteLike, patchAvatar, deleteCard } from './api.js'
-export const myId = "ef92df96a74176633fe20450";
+import { renderLoading, toggleLikeButtom } from './utils.js';
+import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from './api.js'
+//export const myId = "ef92df96a74176633fe20450";
+export let userId;
+
+//Функция добавления лайка
+export function addLike(cardId, likesCounter, likesButton) {
+  addLikeApi(cardId)
+    .then((res) => {
+      toggleLikeButtom(res, likesCounter, likesButton, true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//Функция снятия лайка
+export function deleteLike(cardId, likesCounter, likesButton) {
+  deleteLikeApi(cardId)
+    .then((res) => {
+      toggleLikeButtom(res, likesCounter, likesButton, false);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//Функция удаления карточек
+export function deleteCard(cardId, cardElement) {
+  deleteCardApi(cardId)
+    .then(() => {
+      cardElement.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 //***Функция сохранения информации о пользователе из формы***//
 function handleProfileFormSubmit (evt) {
@@ -15,7 +49,9 @@ function handleProfileFormSubmit (evt) {
     .then((result) => {
       profileName.textContent = result.name;
       profileDescription.textContent = result.about;
-      profileAvatar.img = result.avatar;
+      profileAvatar.src = result.avatar;
+      disableButton();
+      closePopup(popupProfile);
     })
     .catch((err) => {
       console.log(err);
@@ -23,10 +59,6 @@ function handleProfileFormSubmit (evt) {
     .finally(() => {
       renderLoading(profileSubmitButton, 'Сохранить', false);
     });
-
-  disableButton();
-
-  closePopup(popupProfile);
 }
 
 //***Функция добавления новой карточки из формы***//
@@ -37,6 +69,9 @@ function handleCardFormSubmit (evt) {
   addNewCard(urlInput, namePlaceInput)
     .then((result) => {
       addCard(cardsGallery, createCard(result.link, result.name, result.likes, result.owner._id, [], result._id, addLike, deleteLike, deleteCard));
+      formCards.reset();
+      disableButton();
+      closePopup(popupGallery);
     })
     .catch((err) => {
       console.log(err);
@@ -44,12 +79,6 @@ function handleCardFormSubmit (evt) {
     .finally(() => {
       renderLoading(cardsSubmitButton, 'Создать', false);
     });
-
-  formCards.reset();
-
-  disableButton();
-
-  closePopup(popupGallery);
 }
 
 function handleAvatarFormSubmit(evt) {
@@ -59,6 +88,9 @@ function handleAvatarFormSubmit(evt) {
   patchAvatar(avatarInput)
     .then((result) => {
       profileAvatar.src = result.avatar;
+      formAvatar.reset();
+      disableButton();
+      closePopup(popupAvatar);
     })
     .catch((err) => {
       console.log(err);
@@ -66,12 +98,6 @@ function handleAvatarFormSubmit(evt) {
     .finally(() => {
       renderLoading(avatarSubmitButton, 'Сохранить', false);
     });
-
-  formAvatar.reset();
-
-  disableButton();
-
-  closePopup(popupAvatar);
 }
 
 //***Получение данных о пользователе с сервера***//
@@ -79,7 +105,8 @@ getProfile()
   .then((result) => {
     profileName.textContent = result.name;
     profileDescription.textContent = result.about;
-    profileAvatar.img = result.avatar;
+    profileAvatar.src = result.avatar;
+    userId = result._id;
   })
   .catch((err) => {
     console.log(err);

@@ -1,3 +1,4 @@
+import { checkResponse } from "./utils.js";
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
   headers: {
@@ -12,12 +13,7 @@ export const getProfile = () => {
     method: 'GET',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 }
 
 //Загрузка карточек с сервера
@@ -26,12 +22,7 @@ export const getInitialCards = () => {
     method: 'GET',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 }
 
 //Редактирование профиля
@@ -44,12 +35,7 @@ export const editProfile = (nameInput, aboutInput) => {
       about: aboutInput.value
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 }
 
 //Добавление новой карточки
@@ -62,12 +48,7 @@ export const addNewCard = (urlCard, nameCard) => {
       link: urlCard.value
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 }
 
 //Запрос на удаление карточек пользователя
@@ -76,12 +57,7 @@ export const deleteCardApi = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 }
 
 //Добавление лайка
@@ -90,12 +66,7 @@ export const addLikeApi = (cardId) => {
     method: 'PUT',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse);
 }
 
 //Снятие лайка
@@ -104,43 +75,7 @@ export const deleteLikeApi = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-}
-
-//Счетчик добавления лайка
-export function addLike(cardId, likesCounter) {
-  addLikeApi(cardId)
-    .then((res) => {
-      likesCounter.textContent = res.likes.length;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-//Счетчик снятия лайка
-export function deleteLike(cardId, likesCounter) {
-  deleteLikeApi(cardId)
-    .then((res) => {
-      likesCounter.textContent = res.likes.length;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-//Удаление карточек
-export function deleteCard(cardId, cardElement) {
-  deleteCardApi(cardId)
-    .then(cardElement.remove())
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 }
 
 //Редактирование аватара
@@ -152,11 +87,5 @@ export const patchAvatar = (avatarInput) => {
       avatar: `${avatarInput.value}`
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 }
-

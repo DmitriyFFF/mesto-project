@@ -1,6 +1,5 @@
 import { openPopup } from './modal.js';
-import { myId } from './index.js';
-import { deleteCard } from './api.js';
+import { userId } from './index.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const popupPhoto = document.querySelector('.popup_type_photo');
@@ -21,26 +20,24 @@ export function createCard(link, name, likes, ownerId, [], cardId, addLike, dele
   cardLikesCounter.textContent = likes.length;
 
   //Проверка поставленных пользователем лайков
-  const hasMyId = likes.some(item => {
-    return item._id == myId;
+  const hasUserId = likes.some(item => {
+    return item._id == userId;
   })
-  if (hasMyId) {
+  if (hasUserId) {
     cardLikesButton.classList.add('card__button_active');
   }
 
   cardLikesButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     if (cardLikesButton.classList.contains('card__button_active')) {
-      deleteLike(cardId, cardLikesCounter);
-      cardLikesButton.classList.remove('card__button_active');
+      deleteLike(cardId, cardLikesCounter, cardLikesButton);
     } else {
-      addLike(cardId, cardLikesCounter);
-      cardLikesButton.classList.add('card__button_active');
+      addLike(cardId, cardLikesCounter, cardLikesButton);
     }
   });
 
   //Проверка и удаление карточки пользователя
-  if (ownerId === myId) {
+  if (ownerId === userId) {
     cardDeleteButton.classList.remove('card__delete-button_disabled');
     cardDeleteButton.addEventListener('click', () => {
       deleteCard(cardId, cardElement)
