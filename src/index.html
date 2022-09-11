@@ -45,11 +45,11 @@
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__input-container">
             <div class="form__item">
-              <input class="form__input form__input_type_name" id="name-input" type="text" name="name_profile" value="" placeholder="Имя" minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-я -]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+              <input class="form__input form__input_type_name" id="name-input" type="text" name="name_profile" value="" placeholder="Имя" minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-я\ё\Ё\-\ ]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
               <span class="name-input-error form__input-error"></span>
             </div>
             <div class="form__item">
-              <input class="form__input form__input_type_about" id="about-input" type="text" name="about_profile" value="" placeholder="О себе" minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-я -]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+              <input class="form__input form__input_type_about" id="about-input" type="text" name="about_profile" value="" placeholder="О себе" minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-я\ё\Ё\-\ ]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
               <span class="about-input-error form__input-error"></span>
             </div>
           </fieldset>
@@ -64,7 +64,7 @@
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__input-container">
             <div class="form__item">
-              <input class="form__input form__input_type_place" id="place-input" type="text" name="name_place" value="" placeholder="Название" minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-я -]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+              <input class="form__input form__input_type_place" id="place-input" type="text" name="name_place" value="" placeholder="Название" minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-я\ё\Ё\-\ ]+$" data-error-message = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
               <span class="place-input-error form__input-error"></span>
             </div>
             <div class="form__item">
