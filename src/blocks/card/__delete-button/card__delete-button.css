@@ -11,7 +11,3 @@
   top: 19px;
   right: 20px;
 }
-
-.card__delete-button:disabled {
-  visibility: hidden;
-}
