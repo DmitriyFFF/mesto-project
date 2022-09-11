@@ -1,22 +1,9 @@
 .profile__avatar {
-  position: relative;
+  display: inline-block;
   border-radius: 50%;
   width: 120px;
   height: 120px;
   object-fit: cover;
-  z-index: 0;
   cursor: pointer;
 }
 
-/*width: 200px;
-.profile__avatar:hover::before {
-  content: url('/src/images/avatar_edit_pencil.svg');
-  background-repeat: no-repeat;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  position: absolute;
-  background-color: #f00;
-  background-size: 150px;
-  height: 200px;
-}*/

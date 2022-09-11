@@ -13,3 +13,10 @@ export function overlayHandler (evt) {
   }
 }
 
+export function renderLoading(button, textButton, isLoading) {
+  if (isLoading) {
+    button.textContent = 'Сохранение...';
+  } else {
+    button.textContent = textButton;
+  }
+}

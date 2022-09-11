@@ -1,7 +1,6 @@
 .profile__avatar-background {
-  /*position: relative;
+  position: relative;
   width: 120px;
   height: 120px;
-  background-color: rgba(255, 0, 0, .8);
-  z-index: 10;*/
+  overflow: hidden;
 }

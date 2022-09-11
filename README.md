@@ -16,6 +16,8 @@ ___
 - HTML5
 - CSS3
 - JavaScript
+- Webpack
+- Валидация форм и работа с API
 - Git
 - Grid и Flexbox
 - Работа с модальными окнами и формами
