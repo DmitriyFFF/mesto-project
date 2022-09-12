@@ -1,13 +1,13 @@
 import {closePopup} from './modal.js';
 
-export function keyHandler (evt) {
+export function handleEscapeKey (evt) {
   if(evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
 }
 
-export function overlayHandler (evt) {
+export function handleClosePopupOverlay (evt) {
   if((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
     closePopup(evt.currentTarget);
   }
@@ -28,11 +28,7 @@ export function checkResponse (res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export function toggleLikeButtom(result, likesCounter, likeButton, likeStatus) {
-  likesCounter.textContent = result.likes.length
-  if (!likeStatus) {
-    likeButton.classList.remove('card__button_active');
-  } else {
-    likeButton.classList.add('card__button_active');
-  }
+export function toggleLikeButton(result, likesCounter, likeButton) {
+  likesCounter.textContent = result.likes.length;
+  likeButton.classList.toggle('card__button_active');
 }

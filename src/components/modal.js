@@ -1,11 +1,11 @@
-import {keyHandler, overlayHandler} from './utils.js';
+import { handleEscapeKey, handleClosePopupOverlay } from './utils.js';
 
 export const formProfile = document.querySelector('.form_type_profile');
 export const cardsGallery = document.querySelector('.elements__gallery');
 export const formCards = document.querySelector('.form_type_cards');
 export const urlInput = formCards.querySelector('.form__input_type_url');
 export const namePlaceInput = formCards.querySelector('.form__input_type_place');
-export const cardsSubmitButton = formCards.querySelector('.form__button');
+export const cardSubmitButton = formCards.querySelector('.form__button');
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
 export const formAvatar = document.querySelector('.form_type_avatar');
@@ -27,26 +27,19 @@ const openAddCardButton = document.querySelector('.profile__add-card-button');
 export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
 
-  document.addEventListener('keydown', keyHandler);
-  popupElement.addEventListener('click', overlayHandler);
+  document.addEventListener('keydown', handleEscapeKey);
+  popupElement.addEventListener('click', handleClosePopupOverlay);
 }
 
 export function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
 
-  document.removeEventListener('keydown', keyHandler);
-  popupElement.removeEventListener('click', overlayHandler);
+  document.removeEventListener('keydown', handleEscapeKey);
+  popupElement.removeEventListener('click', handleClosePopupOverlay);
 }
 
-export function disableButton () {
-  const buttonsSubmit = document.querySelectorAll('.form__button');
-  buttonsSubmit.forEach((item) => {
-    if ((!item.hasAttribute('disabled')) || (item.closest('.form__button'))){
-      item.setAttribute('disabled', true);
-    } else {
-      item.removeAttribute('disabled');
-    }
-  })
+export function disableButton (button) {
+  button.disabled = true;
 }
 
 //***Открывание попапов***//
