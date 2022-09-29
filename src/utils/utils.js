@@ -1,4 +1,4 @@
-import {closePopup} from './modal.js';
+import {closePopup} from '../components/modal.js';
 
 export function handleEscapeKey (evt) {
   if(evt.key === 'Escape') {
@@ -21,12 +21,13 @@ export function renderLoading(button, textButton, isLoading) {
   }
 }
 
+/*перенес в api.js
 export function checkResponse (res) {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Ошибка: ${res.status}`);
-}
+}*/
 
 export function toggleLikeButton(result, likesCounter, likeButton) {
   likesCounter.textContent = result.likes.length;

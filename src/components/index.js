@@ -2,14 +2,12 @@ import {addCard, createCard} from './card.js';
 import {formProfile, formCards, formAvatar, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, profileAvatar, avatarInput, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup, disableButton, popupAvatar, profileSubmitButton, cardSubmitButton, avatarSubmitButton} from './modal.js';
 import {enableValidation, validateSettings} from './validate.js';
 import '../pages/index.css';
-import { renderLoading, toggleLikeButton } from './utils.js';
+import { renderLoading, toggleLikeButton } from '../utils/utils.js';
 import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from './api.js'
 export let userId;
-const profileData = {
-  name: profileName,
-  description: profileDescription,
-  avatar: profileAvatar
-};
+
+//Новый импорт
+import {profileData} from '../utils/constants.js';
 
 //Функция добавления лайка
 export function addLike(cardId, likesCounter, likesButton) {

@@ -1,10 +1,5 @@
-export const validateSettings = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-};
+//Новый импорт
+import {validateSettings} from '../utils/constants.js';
 
 //***Функция, показывающая сообщение ошибки поля***//
 function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {

@@ -1,4 +1,4 @@
-import { checkResponse } from "./utils.js";
+import { checkResponse } from "../utils/utils.js";
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
   headers: {
@@ -6,6 +6,101 @@ const config = {
     'Content-Type': 'application/json'
   }
 }
+
+/*Новый код */
+
+class Api {
+  constructor(config) {
+    this._url = config.baseUrl,
+    this._headers = config.headers
+  }
+
+  _checkResponse (res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  getInitialCards() {
+    return fetch(`${config.baseUrl}/cards`, {
+      method: 'GET',
+      headers: config.headers
+    })
+      .then(this._checkResponse);
+  }
+
+  getProfile() {
+    return fetch(`${config.baseUrl}/users/me`, {
+      method: 'GET',
+      headers: config.headers
+    })
+      .then(this._checkResponse);
+  }
+
+  editProfile(nameInput, aboutInput) {
+    return fetch(`${config.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: config.headers,
+      body: JSON.stringify({
+        name: nameInput.value,
+        about: aboutInput.value
+      })
+    })
+      .then(this._checkResponse);
+  }
+
+  addNewCard(urlCard, nameCard) {
+    return fetch(`${config.baseUrl}/cards`, {
+      method: 'POST',
+      headers: config.headers,
+      body: JSON.stringify({
+        name: nameCard.value,
+        link: urlCard.value
+      })
+    })
+      .then(this._checkResponse);
+  }
+
+  deleteCardApi(cardId) {
+    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: config.headers
+    })
+      .then(this._checkResponse);
+  }
+
+  addLikeApi(cardId) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: config.headers
+    })
+      .then(this._checkResponse);
+  }
+
+  deleteLikeApi(cardId) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: config.headers
+    })
+      .then(this._checkResponse);
+  }
+
+  patchAvatar(avatarInput) {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: config.headers,
+      body: JSON.stringify({
+        avatar: `${avatarInput.value}`
+      })
+    })
+      .then(this._checkResponse);
+  }
+}
+
+
+
+/*Старый код */
 
 //Загрузка информации о пользователе с сервера
 export const getProfile = () => {

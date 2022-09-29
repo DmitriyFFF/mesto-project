@@ -1,10 +1,8 @@
 import { openPopup } from './modal.js';
 import { userId } from './index.js';
 
-const cardTemplate = document.querySelector('#card-template').content;
-const popupPhoto = document.querySelector('.popup_type_photo');
-const popupImage = popupPhoto.querySelector('.popup__image');
-const popupImageName = popupPhoto.querySelector('.popup__image-name');
+//Новый импорт
+import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';
 
 //***Функция создания карточки из шаблона***//
 export function createCard(link, name, likes, ownerId, [], cardId, addLike, deleteLike, deleteCard) {
