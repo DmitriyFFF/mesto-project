@@ -4,6 +4,51 @@ import { userId } from './index.js';
 //Новый импорт
 import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';
 
+class Card {
+  constructor(data, templateSelector, handleCardClick) {
+    this._selector = templateSelector;
+    this._title = data.name;
+    this._imageLink = data.link;
+    this._ownerId = data.owner.id;
+    this._cardId = data.id;
+    this._likes = data.likes.length;
+  };
+
+  createCard() {
+    this._selector.querySelector('.card__place').textContent = this._title;
+    this._selector.querySelector('.card__image').src = this._imageLink;
+    this._selector.querySelector('.card__image').alt = this._title;
+    this._selector.querySelector('.card__like-counter').textContent = this._likes;
+
+    if (this._likes.some((item) => item._id === this._ownerId)) {
+      cardLikeButton.classList.add("card__button_active");
+    }
+  
+    cardLikeButton = this._selector.querySelector('.card__button');
+
+    export function deleteLike(cardId, likesCounter, likesButton) {
+      deleteLikeApi(cardId)
+        .then((res) => {
+          toggleLikeButton(res, likesCounter, likesButton);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    
+
+    cardLikeButton.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      if (cardLikeButton.classList.contains('card__button_active')) {
+        Api.deleteLikeApi(addLikeApi);
+      } else {
+        Api.addLikeApi(cardId, cardLikesCounter, cardLikesButton);
+      }
+    });
+  }
+};
+
+// Старый код
 //***Функция создания карточки из шаблона***//
 export function createCard(link, name, likes, ownerId, [], cardId, addLike, deleteLike, deleteCard) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -21,6 +66,7 @@ export function createCard(link, name, likes, ownerId, [], cardId, addLike, dele
   const hasUserId = likes.some(item => {
     return item._id == userId;
   })
+
   if (hasUserId) {
     cardLikesButton.classList.add('card__button_active');
   }
