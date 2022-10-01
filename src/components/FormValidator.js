@@ -1,4 +1,3 @@
-//Новый импорт
 import {validateSettings} from '../utils/constants.js';
 
 //***Функция, показывающая сообщение ошибки поля***//

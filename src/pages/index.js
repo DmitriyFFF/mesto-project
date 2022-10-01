@@ -1,9 +1,9 @@
-import {addCard, createCard} from './card.js';
-import {formProfile, formCards, formAvatar, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, profileAvatar, avatarInput, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup, disableButton, popupAvatar, profileSubmitButton, cardSubmitButton, avatarSubmitButton} from './modal.js';
-import {enableValidation, validateSettings} from './validate.js';
+import {addCard, createCard} from '../components/Card.js';
+import {formProfile, formCards, formAvatar, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, profileAvatar, avatarInput, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup, disableButton, popupAvatar, profileSubmitButton, cardSubmitButton, avatarSubmitButton} from '../components/modal.js';
+import {enableValidation, validateSettings} from '../components/FormValidator.js';
 import '../pages/index.css';
 import { renderLoading, toggleLikeButton } from '../utils/utils.js';
-import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from './api.js'
+import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from '../components/Api.js'
 export let userId;
 
 //Новый импорт

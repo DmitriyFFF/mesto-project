@@ -1,17 +1,17 @@
-import { checkResponse } from "../utils/utils.js";
-const config = {
+//import { checkResponse } from "../utils/utils.js";
+/*const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
   headers: {
     authorization: '1a1c4ff3-29e4-400a-a3cb-d6bec25bd6e2',
     'Content-Type': 'application/json'
   }
-}
+}*/
 
 /*Новый код */
 
-class Api {
+export class Api {
   constructor(config) {
-    this._url = config.baseUrl,
+    this._url = config.url,
     this._headers = config.headers
   }
 
@@ -21,27 +21,27 @@ class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
-
+//Загрузка карточек с сервера
   getInitialCards() {
-    return fetch(`${config.baseUrl}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: 'GET',
-      headers: config.headers
+      headers: this._headers
     })
       .then(this._checkResponse);
   }
-
+//Загрузка информации о пользователе с сервера
   getProfile() {
-    return fetch(`${config.baseUrl}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      headers: config.headers
+      headers: this._headers
     })
       .then(this._checkResponse);
   }
-
+//Редактирование профиля
   editProfile(nameInput, aboutInput) {
-    return fetch(`${config.baseUrl}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: config.headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: nameInput.value,
         about: aboutInput.value
@@ -49,11 +49,11 @@ class Api {
     })
       .then(this._checkResponse);
   }
-
+//Добавление новой карточки
   addNewCard(urlCard, nameCard) {
-    return fetch(`${config.baseUrl}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: 'POST',
-      headers: config.headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: nameCard.value,
         link: urlCard.value
@@ -61,35 +61,35 @@ class Api {
     })
       .then(this._checkResponse);
   }
-
+//Запрос на удаление карточек пользователя
   deleteCardApi(cardId) {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: config.headers
+      headers: this._headers
     })
       .then(this._checkResponse);
   }
-
+//Добавление лайка
   addLikeApi(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: 'PUT',
-      headers: config.headers
+      headers: this._headers
     })
       .then(this._checkResponse);
   }
-
+//Снятие лайка
   deleteLikeApi(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: 'DELETE',
-      headers: config.headers
+      headers: this._headers
     })
       .then(this._checkResponse);
   }
-
+//Редактирование аватара
   patchAvatar(avatarInput) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: config.headers,
+      headers: this._headers,
       body: JSON.stringify({
         avatar: `${avatarInput.value}`
       })

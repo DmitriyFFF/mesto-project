@@ -3,6 +3,15 @@ import { handleEscapeKey, handleClosePopupOverlay } from '../utils/utils.js';
 //Новый импорт
 import { formProfile, cardsGallery, formCards, urlInput, namePlaceInput, cardSubmitButton, profileName, profileDescription, formAvatar, avatarInput, avatarSubmitButton, profileAvatar, profileAvatarEdit, userNameInput, aboutUserInput, profileSubmitButton, popupProfile, popupGallery, popupAvatar, openProfileButton, openAddCardButton } from '../utils/constants.js';
 
+/*Новый код*/
+
+export class Popup {
+  constructor(selector) {
+
+  }
+}
+
+
 //***Функции открывания и закрывания форм по кнопкам ***//
 export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
