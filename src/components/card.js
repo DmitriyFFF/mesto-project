@@ -1,5 +1,6 @@
 import { openPopup } from './modal.js';
 import { userId } from './index.js';
+import { Popup } from './Popup.js';
 
 //Новый импорт
 import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';
@@ -12,41 +13,94 @@ class Card {
     this._ownerId = data.owner.id;
     this._cardId = data.id;
     this._likes = data.likes.length;
+    this._handleCardClick = handleCardClick;
   };
 
-  createCard() {
-    this._selector.querySelector('.card__place').textContent = this._title;
-    this._selector.querySelector('.card__image').src = this._imageLink;
-    this._selector.querySelector('.card__image').alt = this._title;
-    this._selector.querySelector('.card__like-counter').textContent = this._likes;
-
+  // Нужно ли обернуть (Проверка лайков пользователя) 
+  _checkUserLikes() {
     if (this._likes.some((item) => item._id === this._ownerId)) {
-      cardLikeButton.classList.add("card__button_active");
-    }
-  
-    cardLikeButton = this._selector.querySelector('.card__button');
+      this._selector.querySelector('.card__button').classList.add("card__button_active");
+    } 
+  }
+  // Добавление лайка
+  _addLike(cardId, likesCounter, likesButton) {
+    addLikeApi(cardId) //Остановились здесь
+      .then((res) => {
+        toggleLikeButton(res, likesCounter, likesButton);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  // Снятие лайка
+  _deleteLike(cardId, likesCounter, likesButton) {
+    deleteLikeApi(cardId) //Остановились здесь 
+      .then((res) => {
+        toggleLikeButton(res, likesCounter, likesButton);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  // Общие слушатели 
+  _setEventListeners() {
+    this._selector.querySelector('.card__image').addEventListener('click', () => {
+      this._handleCardClick();
+    });
 
-    export function deleteLike(cardId, likesCounter, likesButton) {
-      deleteLikeApi(cardId)
-        .then((res) => {
-          toggleLikeButton(res, likesCounter, likesButton);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    
-
-    cardLikeButton.addEventListener('click', (evt) => {
+    this._selector.querySelector('.card__button').addEventListener('click', (evt) => {
       evt.preventDefault();
       if (cardLikeButton.classList.contains('card__button_active')) {
-        Api.deleteLikeApi(addLikeApi);
+        this._deleteLike(this._cardId, this._likes, cardLikeButton);
       } else {
-        Api.addLikeApi(cardId, cardLikesCounter, cardLikesButton);
+        this._addLike(this._cardId, this._likes, cardLikeButton);
       }
-    });
+    }); 
   }
-};
+  // Шаблон 1 карточки
+  _getElement() {
+    const cardElement = document
+      .querySelector(this._selector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
+
+    return cardElement;
+  }
+  // Заполненная разметка 1 карточки
+  generate() {
+    this._element = this._getElement();
+    this._setEventListeners();
+
+    this._element.querySelector('.card__image').src = this._imageLink;
+    this._element.querySelector('.card__place').textContent = this._title;
+    this._element.querySelector('.card__like-counter').textContent = this._likes;
+    this._element.querySelector('.card__image').alt = this._title;
+
+    return this._element;
+  }
+  // Проверка принадлежит ли карточка пользователю
+  _checkUserCardId(userId) {
+    if (this._ownerId === userId) {
+      this._selector.querySelector('.card__delete-button').classList.remove('card__delete-button_disabled');
+      this._selector.querySelector('.card__delete-button').addEventListener('click', () => {
+        deleteCard(this._cardId, this._element);
+      });
+    } else {
+      this._selector.querySelector('.card__delete-button').classList.add('card__delete-button_disabled');
+    }
+  }
+  // Удаление карточки
+  _deleteCard(cardId, cardElement) {
+    deleteCardApi(cardId) 
+      .then(() => {
+        cardElement.remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
 
 // Старый код
 //***Функция создания карточки из шаблона***//

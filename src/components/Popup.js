@@ -12,23 +12,24 @@ export class Popup {
 
   _handleEscClose (evt) {
     if(evt.key === 'Escape') {
-      const popupOpened = document.querySelector('.popup_opened'); // ?
-      this.close(popupOpened); //?
+      this.close(); //?
     }
   }
 
   // _handleClosePopupOverlay (evt) {
-  //   if((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
+  //   if((evt.target.E.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
   //     this.close(evt.currentTarget);
   //   }
   // }
 
   open() {
     this._selector.classList.add('popup_opened');
+    this.setEventListeners();
   }
 
   close() {
     this._selector.classList.remove('popup_opened');
+    this.removeEventListeners();
   }
 
 // Слушатель клика по иконке закрытия popup
@@ -40,6 +41,18 @@ export class Popup {
     this._selector.addEventListener('click', () => {
       this.close();
     });
+    document.addEventListener('keydown', this._handleEscClose);
+  }
+
+  removeEventListeners() {
+    this._selector.closest('.popup__close').removeEventListener('click', () => {
+      this.close();
+    });
+    
+    this._selector.removeEventListener('click', () => {
+      this.close();
+    });
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 }
 
