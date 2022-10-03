@@ -4,5 +4,14 @@ export default class PopupWithForm extends Popup {
     super (selector);
   }
 
-  
+  _getInputValues() {
+
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+
+  }
+
+
 }

@@ -1,8 +1,8 @@
-import {validateSettings} from '../utils/constants.js';
+//import {validateSettings} from '../utils/constants.js';
 
-class FormValidator {
+export default class FormValidator {
   constructor(settings, formElement) {
-    this._settings = settings;    
+    this._settings = settings;//???
     this._element = formElement;
     this._formSelector = settings.formSelector;
     this._inputSelector = settings.inputSelector;
@@ -11,76 +11,72 @@ class FormValidator {
     this._errorClass = settings.errorClass;
   }
 
-//***Функция, показывающая сообщение ошибки поля***//
-_showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(errorClass);
-}
-
-//***Функция, скрывающая сообщение ошибки поля***//
-_hideInputError(formElement, inputElement, inputErrorClass, errorClass) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
-  errorElement.textContent = '';
-}
-
-//***Функция проверки поля на валидность***//
-_isValid(formElement, inputElement) {
-  if (inputElement.validity.patternMismatch) {
-    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-  } else {
-    inputElement.setCustomValidity('');
+  //***Функция, показывающая сообщение ошибки поля***//
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._element.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add(this._errorClass);
   }
 
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, validateSettings.inputErrorClass,validateSettings.errorClass);
-  } else {
-    hideInputError(formElement, inputElement, validateSettings.inputErrorClass,validateSettings.errorClass);
+  //***Функция, скрывающая сообщение ошибки поля***//
+  _hideInputError(inputElement) {
+    const errorElement = this._element.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = '';
   }
-}
 
-//***Функция, добавляющая обработчики полям формы***//
-_setEventListeners(formElement, inputSelector, submitButtonSelector) {
-  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-  const buttonElement = formElement.querySelector(submitButtonSelector)
+  //***Функция проверки поля на валидность***//
+  _isValid(inputElement) {
+    if (inputElement.validity.patternMismatch) {
+      inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+    } else {
+      inputElement.setCustomValidity('');
+    }
 
-  toggleButtonState(inputList, buttonElement);
+    if (!inputElement.validity.valid) {
+      this._showInputError(inputElement, inputElement.validationMessage);
+    } else {
+      this._hideInputError(inputElement);
+    }
+  }
 
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+  //***Функция, добавляющая обработчики полям формы***//
+  _setEventListeners() {
+    const inputList = Array.from(this._element.querySelectorAll(this._inputSelector));//this._inputList???
+    const buttonElement = this._element.querySelector(this._submitButtonSelector);//this._buttonElement???
+
+    this._toggleButtonState(inputList, buttonElement);
+
+    inputList.forEach((inputElement) => {//this._inputList???
+      inputElement.addEventListener('input', () => {
+        this._isValid(inputElement);
+        this._toggleButtonState(inputList, buttonElement);
+      });
     });
-  });
-}
-
-//***Функция проверки наличия невалидного поля***//
-_hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
-
-//***Функция переключения состояния кнопки***//
-_toggleButtonState(inputList, buttonElement) {
-  if(hasInvalidInput(inputList)) {
-    buttonElement.setAttribute('disabled',true);
-  } else {
-    buttonElement.removeAttribute('disabled');
   }
-}
 
-//***Функция, добавляющая обработчики всем формам***//
-enableValidation(validateSettings) {
-  const formList = document.querySelectorAll(validateSettings.formSelector);
+  //***Функция проверки наличия невалидного поля***//
+  _hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {//this._inputList???
+      return !inputElement.validity.valid;
+    })
+  }
 
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, validateSettings.inputSelector, validateSettings.submitButtonSelector);
-  });
-}
+  //***Функция переключения состояния кнопки***//
+  _toggleButtonState(inputList, buttonElement) {
+    if(this._hasInvalidInput(inputList)) {
+      buttonElement.setAttribute('disabled',true);//this._buttonElement???
+    } else {
+      buttonElement.removeAttribute('disabled');//this._buttonElement???
+    }
+  }
+
+  //***Функция, добавляющая обработчики всем формам***//
+  enableValidation() {
+    this._setEventListeners();
+  }
 }
 
 // Старый код
