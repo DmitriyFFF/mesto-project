@@ -5,7 +5,7 @@ import { formProfile, cardsGallery, formCards, urlInput, namePlaceInput, cardSub
 
 /*Новый код*/
 
-export class Popup {
+export default class Popup {
   constructor(selector) {
     this._selector = selector;
   }
@@ -48,7 +48,7 @@ export class Popup {
     this._selector.closest('.popup__close').removeEventListener('click', () => {
       this.close();
     });
-    
+
     this._selector.removeEventListener('click', () => {
       this.close();
     });

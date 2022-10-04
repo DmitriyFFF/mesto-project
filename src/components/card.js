@@ -5,7 +5,7 @@ import { Popup } from './Popup.js';
 //Новый импорт
 import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';
 
-class Card {
+export default class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._selector = templateSelector;
     this._title = data.name;
@@ -16,11 +16,11 @@ class Card {
     this._handleCardClick = handleCardClick;
   };
 
-  // Нужно ли обернуть (Проверка лайков пользователя) 
+  // Нужно ли обернуть (Проверка лайков пользователя)
   _checkUserLikes() {
     if (this._likes.some((item) => item._id === this._ownerId)) {
       this._selector.querySelector('.card__button').classList.add("card__button_active");
-    } 
+    }
   }
   // Добавление лайка
   _addLike(cardId, likesCounter, likesButton) {
@@ -34,7 +34,7 @@ class Card {
   }
   // Снятие лайка
   _deleteLike(cardId, likesCounter, likesButton) {
-    deleteLikeApi(cardId) //Остановились здесь 
+    deleteLikeApi(cardId) //Остановились здесь
       .then((res) => {
         toggleLikeButton(res, likesCounter, likesButton);
       })
@@ -42,7 +42,7 @@ class Card {
         console.log(err);
       });
   }
-  // Общие слушатели 
+  // Общие слушатели
   _setEventListeners() {
     this._selector.querySelector('.card__image').addEventListener('click', () => {
       this._handleCardClick();
@@ -55,7 +55,7 @@ class Card {
       } else {
         this._addLike(this._cardId, this._likes, cardLikeButton);
       }
-    }); 
+    });
   }
   // Шаблон 1 карточки
   _getElement() {
@@ -92,7 +92,7 @@ class Card {
   }
   // Удаление карточки
   _deleteCard(cardId, cardElement) {
-    deleteCardApi(cardId) 
+    deleteCardApi(cardId)
       .then(() => {
         cardElement.remove();
       })
