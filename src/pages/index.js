@@ -4,10 +4,38 @@ import {enableValidation, validateSettings} from '../components/FormValidator.js
 import '../pages/index.css';
 import { renderLoading, toggleLikeButton } from '../utils/utils.js';
 import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from '../components/Api.js'
+import {profileData} from '../utils/constants.js';
 export let userId;
 
 //Новый импорт
-import {profileData} from '../utils/constants.js';
+import {validateSettings, formProfile, formCards, formAvatar} from '../utils/constants.js';
+import Api from '../components/Api.js';
+import FormValidator from '../components/FormValidator.js';
+
+//Новый код
+
+//"Экземпляр класса Api"
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
+  headers: {
+    authorization: '1a1c4ff3-29e4-400a-a3cb-d6bec25bd6e2',
+    'Content-Type': 'application/json'
+  }
+});
+
+//"Экземпляры класса FormValidator для всех форм"
+const formProfileValidator = new FormValidator(validateSettings, formProfile);
+const formCardValidator = new FormValidator(validateSettings, formCards);
+const formAvatarValidator = new FormValidator(validateSettings, formAvatar);
+
+//Валидация форм
+formProfileValidator.enableValidation();
+formCardValidator.enableValidation();
+formAvatarValidator.enableValidation();
+
+
+
+/***********************  Старый код  **********************/
 
 //Функция добавления лайка
 export function addLike(cardId, likesCounter, likesButton) {
