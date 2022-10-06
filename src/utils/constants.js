@@ -15,15 +15,15 @@ export const profileAvatarEdit = document.querySelector('.profile__avatar-edit')
 export const userNameInput = formProfile.querySelector('.form__input_type_name');
 export const aboutUserInput = formProfile.querySelector('.form__input_type_about');
 export const profileSubmitButton = formProfile.querySelector('.form__button');
-export const popupProfile = document.querySelector('.popup_type_profile');
+export const popupProfileSelector = document.querySelector('.popup_type_profile');
 export const popupGallery = document.querySelector('.popup_type_gallery');
-export const popupAvatar = document.querySelector('.popup_type_avatar');
+export const popupAvatarSelector = document.querySelector('.popup_type_avatar');
 export const openProfileButton = document.querySelector('.profile__edit-button');
 export const openAddCardButton = document.querySelector('.profile__add-card-button');
 
 /*константы из card.js */
 export const cardTemplate = document.querySelector('#card-template').content;
-export const popupPhoto = document.querySelector('.popup_type_photo');
+export const popupImageSelector = document.querySelector('.popup_type_photo');
 export const popupImage = popupPhoto.querySelector('.popup__image');
 export const popupImageName = popupPhoto.querySelector('.popup__image-name');
 

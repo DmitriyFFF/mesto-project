@@ -1,16 +1,15 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(selector, handleSubmitForm) {
-    super (selector);
+  constructor(popupSelector, handleSubmitForm) {
+    super (popupSelector);
     this._handleSubmitForm = handleSubmitForm;
-    //this._formElement = this._popupSelector.querySelector('.form');
+    this._formElement = this._popupSelector.querySelector('.form');
+    this._inputList = this._formElement.querySelectorAll('.form__input');
+    this._submitButton = this._formElement.querySelector('.form__button');
   }
 
-  _getInputValues() {//из тренажера
-    // достаём все элементы полей
-    this._inputList = this._element.querySelectorAll('.form__input');//???
-
+  _getInputValues() {
     // создаём пустой объект
     this._formValues = {};
 
@@ -32,8 +31,20 @@ export default class PopupWithForm extends Popup {
     })
   }
 
+  renderLoading(textButton, isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = 'Сохранение...';
+    } else {
+      this._submitButton.textContent = textButton;
+    }
+  }
+
+  disableButton() {
+    this._submitButton.disabled = true;
+  }
+
   close() {
     super.close();
-    /*this._formElement.reset();*/
+    this._formElement.reset();
   }
 }

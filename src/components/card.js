@@ -6,7 +6,7 @@ import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/c
 //Новый код
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, userId) {
+  constructor(data, templateSelector, handleCardClick, userId, addLike) {
     this._selector = templateSelector;
     this._title = data.name;
     this._imageLink = data.link;
@@ -15,6 +15,7 @@ export default class Card {
     this._likes = data.likes.length;
     this._handleCardClick = handleCardClick;
     this._userId = userId;
+    this._addLike = addLike;
   };
 
   // Шаблон 1 карточки
@@ -47,9 +48,9 @@ export default class Card {
     }
   }
 
-  // Добавление лайка
+  // Добавление лайка ??????????????????????????????? Передается как колбек в index.js
   _addLike(cardId, likesCounter, likesButton) {
-    addLikeApi(cardId) //Остановились здесь
+    this._addLike(cardId) //Остановились здесь
       .then((res) => {
         toggleLikeButton(res, likesCounter, likesButton);
       })
@@ -62,7 +63,7 @@ export default class Card {
   _deleteLike(cardId, likesCounter, likesButton) {
     deleteLikeApi(cardId) //Остановились здесь
       .then((res) => {
-        toggleLikeButton(res, likesCounter, likesButton);
+        this._toggleLikeButton(res, likesCounter, likesButton);
       })
       .catch((err) => {
         console.log(err);
@@ -79,6 +80,11 @@ export default class Card {
         console.log(err);
       });
   }
+
+  _toggleLikeButton(result, likesCounter, likeButton) {
+    likesCounter.textContent = result.likes.length;
+    likeButton.classList.toggle('card__button_active');
+  } //???
 
   // Общие слушатели
   _setEventListeners() {

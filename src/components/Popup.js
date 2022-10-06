@@ -4,8 +4,8 @@ import { formProfile, cardsGallery, formCards, urlInput, namePlaceInput, cardSub
 /*Новый код*/
 
 export default class Popup {
-  constructor(selector) {
-    this._selector = selector;
+  constructor(popupSelector) {
+    this._popupSelector = popupSelector;
   }
 
   _handleEscClose (evt) {
@@ -21,33 +21,33 @@ export default class Popup {
   // }
 
   open() {
-    this._selector.classList.add('popup_opened');
+    this._popupSelector.classList.add('popup_opened');
     this.setEventListeners();
   }
 
   close() {
-    this._selector.classList.remove('popup_opened');
+    this._popupSelector.classList.remove('popup_opened');
     this.removeEventListeners();
   }
 
 // Слушатель клика по иконке закрытия popup
   setEventListeners() {
-    this._selector.closest('.popup__close').addEventListener('click', () => {
+    this._popupSelector.closest('.popup__close').addEventListener('click', () => {
       this.close();
     });
     // ?
-    this._selector.addEventListener('click', () => {
+    this._popupSelector.addEventListener('click', () => {
       this.close();
     });
     document.addEventListener('keydown', this._handleEscClose);
   }
 
   removeEventListeners() {
-    this._selector.closest('.popup__close').removeEventListener('click', () => {
+    this._popupSelector.closest('.popup__close').removeEventListener('click', () => {
       this.close();
     });
 
-    this._selector.removeEventListener('click', () => {
+    this._popupSelector.removeEventListener('click', () => {
       this.close();
     });
     document.removeEventListener('keydown', this._handleEscClose);

@@ -1,16 +1,29 @@
-import {addCard, createCard} from '../components/Card.js';
-import {formProfile, formCards, formAvatar, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, profileAvatar, avatarInput, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup, disableButton, popupAvatar, profileSubmitButton, cardSubmitButton, avatarSubmitButton} from '../components/modal.js';
-import {enableValidation, validateSettings} from '../components/FormValidator.js';
-import '../pages/index.css';
-import { renderLoading, toggleLikeButton } from '../utils/utils.js';
-import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from '../components/Api.js'
-import {profileData} from '../utils/constants.js';
-export let userId;
+// import {addCard, createCard} from '../components/Card.js';
+// import {formProfile, formCards, formAvatar, cardsGallery, urlInput, namePlaceInput, profileName, profileDescription, profileAvatar, avatarInput, userNameInput, aboutUserInput, popupProfile, popupGallery, closePopup, disableButton, popupAvatar, profileSubmitButton, cardSubmitButton, avatarSubmitButton} from '../components/modal.js';
+// import {enableValidation, validateSettings} from '../components/FormValidator.js';
+// import '../pages/index.css';
+// import { renderLoading, toggleLikeButton } from '../utils/utils.js';
+// import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from '../components/Api.js'
+// import {profileData} from '../utils/constants.js';
+// export let userId;
 
 //Новый импорт
-import {validateSettings, formProfile, formCards, formAvatar} from '../utils/constants.js';
+import {validateSettings,
+        formProfile,
+        formCards,
+        formAvatar,
+        popupImageSelector,
+        popupAvatarSelector,
+        avatarInput,
+        avatarEditButton,
+        popupProfileSelector,
+        userNameInput,
+        aboutUserInput,
+        profileEditButton
+} from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 //Новый код
 
@@ -21,7 +34,73 @@ const api = new Api({
     authorization: '1a1c4ff3-29e4-400a-a3cb-d6bec25bd6e2',
     'Content-Type': 'application/json'
   }
+}); // Передать конфиг
+
+// Функциональность попапа открытия изображения карточки
+const popupImage = new PopupWithImage(popupImageSelector);
+// Активируем слушатели попапа изображения
+popupImage.setEventListeners();
+
+// Функциональность попапа редактирования Аватара пользователя
+const popupAvatar = new PopupWithForm({
+  popupSelector: popupAvatarSelector,
+  handleSubmitForm: handleAvatarFormSubmit
 });
+
+function handleAvatarFormSubmit() {
+  evt.preventDefault();
+  popupAvatar.renderLoading('Сохранить', true);
+
+  api.patchAvatar(avatarInput)
+    .then((result) => {
+      userInfo.setUserInfo(result);
+      popupAvatar.disableButton();
+      popupAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupAvatar.renderLoading('Сохранить', false);
+    });
+}
+
+popupAvatar.setEventListeners();
+
+avatarEditButton.addEventListener('click', () => {
+  popupAvatar.open();
+});
+
+// Функциональность попапа редактирования профиля пользователя
+const popupProfile = new PopupWithForm({
+  popupSelector: popupProfileSelector,
+  handleSubmitForm: handleProfileFormSubmit
+});
+
+function handleProfileFormSubmit() {
+  evt.preventDefault();
+  popupProfile.renderLoading('Сохранить', true);
+
+  api.editProfile(userNameInput, aboutUserInput)
+    .then((result) => {
+      userInfo.setUserInfo(result);
+      popupProfile.disableButton();
+      popupProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupProfile.renderLoading('Сохранить', false);
+    });
+}
+
+popupProfile.setEventListeners();
+
+profileEditButton.addEventListener('click', () => {
+  popupProfile.open();
+});
+
 
 //"Экземпляры класса FormValidator для всех форм"
 const formProfileValidator = new FormValidator(validateSettings, formProfile);
