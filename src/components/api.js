@@ -1,12 +1,3 @@
-//import { checkResponse } from "../utils/utils.js";
-/*const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
-  headers: {
-    authorization: '1a1c4ff3-29e4-400a-a3cb-d6bec25bd6e2',
-    'Content-Type': 'application/json'
-  }
-}*/
-
 /*Новый код */
 
 export default class Api {

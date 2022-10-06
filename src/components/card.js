@@ -1,12 +1,12 @@
 import { openPopup } from './modal.js';
 import { userId } from './index.js';
 import { Popup } from './Popup.js';
-
-//Новый импорт
 import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';
 
+//Новый код
+
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, userId) {
     this._selector = templateSelector;
     this._title = data.name;
     this._imageLink = data.link;
@@ -14,49 +14,9 @@ export default class Card {
     this._cardId = data.id;
     this._likes = data.likes.length;
     this._handleCardClick = handleCardClick;
+    this._userId = userId;
   };
 
-  // Нужно ли обернуть (Проверка лайков пользователя)
-  _checkUserLikes() {
-    if (this._likes.some((item) => item._id === this._ownerId)) {
-      this._selector.querySelector('.card__button').classList.add("card__button_active");
-    }
-  }
-  // Добавление лайка
-  _addLike(cardId, likesCounter, likesButton) {
-    addLikeApi(cardId) //Остановились здесь
-      .then((res) => {
-        toggleLikeButton(res, likesCounter, likesButton);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  // Снятие лайка
-  _deleteLike(cardId, likesCounter, likesButton) {
-    deleteLikeApi(cardId) //Остановились здесь
-      .then((res) => {
-        toggleLikeButton(res, likesCounter, likesButton);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  // Общие слушатели
-  _setEventListeners() {
-    this._selector.querySelector('.card__image').addEventListener('click', () => {
-      this._handleCardClick();
-    });
-
-    this._selector.querySelector('.card__button').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      if (cardLikeButton.classList.contains('card__button_active')) {
-        this._deleteLike(this._cardId, this._likes, cardLikeButton);
-      } else {
-        this._addLike(this._cardId, this._likes, cardLikeButton);
-      }
-    });
-  }
   // Шаблон 1 карточки
   _getElement() {
     const cardElement = document
@@ -67,6 +27,74 @@ export default class Card {
 
     return cardElement;
   }
+
+  // Нужно ли обернуть (Проверка лайков пользователя)
+  _checkUserLikes() {//Не используется
+    if (this._likes.some((item) => item._id === this._ownerId)) {
+      this._selector.querySelector('.card__button').classList.add('card__button_active');
+    }
+  }
+
+  // Проверка принадлежит ли карточка пользователю
+  _checkUserCardId(userId) {//Не используется
+    if (this._ownerId === userId) {
+      this._selector.querySelector('.card__delete-button').classList.remove('card__delete-button_disabled');
+      this._selector.querySelector('.card__delete-button').addEventListener('click', () => {
+        deleteCard(this._cardId, this._element);
+      });
+    } else {
+      this._selector.querySelector('.card__delete-button').classList.add('card__delete-button_disabled');
+    }
+  }
+
+  // Добавление лайка
+  _addLike(cardId, likesCounter, likesButton) {
+    addLikeApi(cardId) //Остановились здесь
+      .then((res) => {
+        toggleLikeButton(res, likesCounter, likesButton);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Снятие лайка
+  _deleteLike(cardId, likesCounter, likesButton) {
+    deleteLikeApi(cardId) //Остановились здесь
+      .then((res) => {
+        toggleLikeButton(res, likesCounter, likesButton);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Удаление карточки
+  _deleteCard(cardId, cardElement) {
+    deleteCardApi(cardId)
+      .then(() => {
+        cardElement.remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Общие слушатели
+  _setEventListeners() {
+    this._selector.querySelector('.card__image').addEventListener('click', () => {
+      this._handleCardClick();
+    });
+
+    this._selector.querySelector('.card__button').addEventListener('click', () => {
+      if (cardLikeButton.classList.contains('card__button_active')) {
+        this._deleteLike(this._cardId, this._likes, cardLikeButton);
+      } else {
+        this._addLike(this._cardId, this._likes, cardLikeButton);
+      }
+    });
+  }
+
   // Заполненная разметка 1 карточки
   generate() {
     this._element = this._getElement();
@@ -78,27 +106,6 @@ export default class Card {
     this._element.querySelector('.card__image').alt = this._title;
 
     return this._element;
-  }
-  // Проверка принадлежит ли карточка пользователю
-  _checkUserCardId(userId) {
-    if (this._ownerId === userId) {
-      this._selector.querySelector('.card__delete-button').classList.remove('card__delete-button_disabled');
-      this._selector.querySelector('.card__delete-button').addEventListener('click', () => {
-        deleteCard(this._cardId, this._element);
-      });
-    } else {
-      this._selector.querySelector('.card__delete-button').classList.add('card__delete-button_disabled');
-    }
-  }
-  // Удаление карточки
-  _deleteCard(cardId, cardElement) {
-    deleteCardApi(cardId)
-      .then(() => {
-        cardElement.remove();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 }
 
