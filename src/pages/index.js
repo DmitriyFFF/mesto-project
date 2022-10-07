@@ -19,7 +19,10 @@ import {validateSettings,
         popupProfileSelector,
         userNameInput,
         aboutUserInput,
-        profileEditButton
+        profileEditButton,
+        popupCardSelector,
+        urlInput,
+        namePlaceInput
 } from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
@@ -100,6 +103,30 @@ popupProfile.setEventListeners();
 profileEditButton.addEventListener('click', () => {
   popupProfile.open();
 });
+
+// Функциональность попапа добавления новой карточки пользователя
+const popupCard = new PopupWithForm({
+  popupSelector: popupCardSelector,
+  handleSubmitForm: handleCardFormSubmit
+});
+
+function handleCardFormSubmit() {
+  evt.preventDefault();
+  popupCard.renderLoading('Создать', true);
+
+  api.addNewCard(urlInput, namePlaceInput)
+    .then((result) => {
+      //userInfo.setUserInfo(result);
+      popupCard.disableButton();
+      popupCard.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupCard.renderLoading('Создать', false);
+    });
+}
 
 
 //"Экземпляры класса FormValidator для всех форм"

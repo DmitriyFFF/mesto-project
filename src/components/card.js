@@ -1,7 +1,7 @@
-import { openPopup } from './modal.js';
+/*import { openPopup } from './modal.js';
 import { userId } from './index.js';
 import { Popup } from './Popup.js';
-import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';
+import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';*/
 
 //Новый код
 
@@ -16,6 +16,8 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._userId = userId;
     this._addLike = addLike;
+    this._likesCounter = likesCounter;
+    this._cardLikeButton = this._selector.querySelector('.card__button');
   };
 
   // Шаблон 1 карточки
@@ -32,59 +34,45 @@ export default class Card {
   // Нужно ли обернуть (Проверка лайков пользователя)
   _checkUserLikes() {//Не используется
     if (this._likes.some((item) => item._id === this._ownerId)) {
-      this._selector.querySelector('.card__button').classList.add('card__button_active');
+      this._cardLikeButton.classList.add('card__button_active');
     }
   }
 
   // Проверка принадлежит ли карточка пользователю
-  _checkUserCardId(userId) {//Не используется
-    if (this._ownerId === userId) {
+  _checkUserCardId() {//Не используется
+    if (this._ownerId === this._userId) {
       this._selector.querySelector('.card__delete-button').classList.remove('card__delete-button_disabled');
       this._selector.querySelector('.card__delete-button').addEventListener('click', () => {
-        deleteCard(this._cardId, this._element);
+        this._deleteCard();
       });
     } else {
       this._selector.querySelector('.card__delete-button').classList.add('card__delete-button_disabled');
     }
   }
 
+  _toggleLikeButton() {
+    this._likesCounter.textContent = this._likes;
+    this._cardLikeButton.classList.toggle('card__button_active');
+  } //???
+
   // Добавление лайка ??????????????????????????????? Передается как колбек в index.js
-  _addLike(cardId, likesCounter, likesButton) {
-    this._addLike(cardId) //Остановились здесь
-      .then((res) => {
-        toggleLikeButton(res, likesCounter, likesButton);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  _addLike() {
+    //this._addLike(cardId) //Остановились здесь
+    this._toggleLikeButton();
   }
 
   // Снятие лайка
-  _deleteLike(cardId, likesCounter, likesButton) {
-    deleteLikeApi(cardId) //Остановились здесь
-      .then((res) => {
-        this._toggleLikeButton(res, likesCounter, likesButton);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  _deleteLike() {
+    //deleteLikeApi(cardId) //Остановились здесь
+    this._toggleLikeButton();
   }
 
   // Удаление карточки
-  _deleteCard(cardId, cardElement) {
-    deleteCardApi(cardId)
-      .then(() => {
-        cardElement.remove();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  _deleteCard() {
+    //deleteCardApi(cardId)
+    //this._getElement.remove();
+    this._cardElement.remove();
   }
-
-  _toggleLikeButton(result, likesCounter, likeButton) {
-    likesCounter.textContent = result.likes.length;
-    likeButton.classList.toggle('card__button_active');
-  } //???
 
   // Общие слушатели
   _setEventListeners() {
@@ -92,11 +80,11 @@ export default class Card {
       this._handleCardClick();
     });
 
-    this._selector.querySelector('.card__button').addEventListener('click', () => {
-      if (cardLikeButton.classList.contains('card__button_active')) {
-        this._deleteLike(this._cardId, this._likes, cardLikeButton);
+    this._cardLikeButton.addEventListener('click', () => {
+      if (this._cardLikeButton.classList.contains('card__button_active')) {
+        this._deleteLike();
       } else {
-        this._addLike(this._cardId, this._likes, cardLikeButton);
+        this._addLike();
       }
     });
   }
@@ -110,6 +98,9 @@ export default class Card {
     this._element.querySelector('.card__place').textContent = this._title;
     this._element.querySelector('.card__like-counter').textContent = this._likes;
     this._element.querySelector('.card__image').alt = this._title;
+
+    this._checkUserCardId();
+    this._checkUserLikes();
 
     return this._element;
   }
