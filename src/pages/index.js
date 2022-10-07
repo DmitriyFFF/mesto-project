@@ -22,11 +22,18 @@ import {validateSettings,
         profileEditButton,
         popupCardSelector,
         urlInput,
-        namePlaceInput
+        namePlaceInput,
+        profileName,
+        profileDescription,
+        profileAvatar,
+        cardsGallery
 } from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Card from '../components/Card.js';
 
 //Новый код
 
@@ -38,6 +45,12 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 }); // Передать конфиг
+
+const userInfo = new UserInfo({
+  name: profileName,
+  description: profileDescription,
+  avatar: profileAvatar 
+});
 
 // Функциональность попапа открытия изображения карточки
 const popupImage = new PopupWithImage(popupImageSelector);
@@ -74,6 +87,8 @@ avatarEditButton.addEventListener('click', () => {
   popupAvatar.open();
 });
 
+// formsAvatar.addEventListener('submit', handleAvatarFormSubmit());
+
 // Функциональность попапа редактирования профиля пользователя
 const popupProfile = new PopupWithForm({
   popupSelector: popupProfileSelector,
@@ -107,8 +122,22 @@ profileEditButton.addEventListener('click', () => {
 // Функциональность попапа добавления новой карточки пользователя
 const popupCard = new PopupWithForm({
   popupSelector: popupCardSelector,
-  handleSubmitForm: handleCardFormSubmit
+  handleSubmitForm: handleCardFormSubmit,
 });
+
+const getCard = (result) => {
+  const newCard = new Card({result,
+    containerSelector: cardsGallery,
+    renderer: () => {
+      const cardItem = popupCard.generate();
+      newCard.addItem(cardItem);
+    },
+    handleImageCard: handleImageCard,
+         
+  });
+
+  return newCard;
+}
 
 function handleCardFormSubmit() {
   evt.preventDefault();
@@ -116,7 +145,9 @@ function handleCardFormSubmit() {
 
   api.addNewCard(urlInput, namePlaceInput)
     .then((result) => {
-      //userInfo.setUserInfo(result);
+      const newCard = getCard(result);
+      newCard.generate();
+      newCard.renderer();
       popupCard.disableButton();
       popupCard.close();
     })
@@ -128,6 +159,27 @@ function handleCardFormSubmit() {
     });
 }
 
+function handleLikeCard() {
+
+}
+
+function handleDeleateCard() {
+
+}
+
+function handleImageCard() {
+  popupImage.open(result);
+}
+
+const cards = new Section (
+  {
+    containerSelector: cardsGallery, 
+    renderer: () => {
+      const cardItem = getCard(result);
+      cards.addItem(cardItem);
+    }
+  }
+);
 
 //"Экземпляры класса FormValidator для всех форм"
 const formProfileValidator = new FormValidator(validateSettings, formProfile);
@@ -139,6 +191,15 @@ formProfileValidator.enableValidation();
 formCardValidator.enableValidation();
 formAvatarValidator.enableValidation();
 
+Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+      userInfo.setUserInfo(userData);
+      userId = userData._id;
+      cards.renderItems(cardsData);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 
 /***********************  Старый код  **********************/
@@ -246,6 +307,7 @@ Promise.all([getProfile(), getInitialCards()])
       setProfileData(profileData, userData);
       userId = userData._id;
       cards.forEach((item) => {
+        cards.renderer()
         addCard(cardsGallery, createCard(item.link, item.name, item.likes, item.owner._id, [], item._id, addLike, deleteLike, deleteCard));
       })
   })
