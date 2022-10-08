@@ -6,7 +6,7 @@ import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/c
 //Новый код
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, userId, addLike) {
+  constructor(data, templateSelector, handleCardClick, handleLikeCard, handleDeleteCard, userId, addLike) {
     this._selector = templateSelector;
     this._title = data.name;
     this._imageLink = data.link;
@@ -14,10 +14,13 @@ export default class Card {
     this._cardId = data.id;
     this._likes = data.likes.length;
     this._handleCardClick = handleCardClick;
+    this._handleLikeCard = handleLikeCard;
+    this._handdleDeleteCard = handleDeleteCard;
     this._userId = userId;
-    this._addLike = addLike;
+    // this._addLike = addLike;
     this._likesCounter = likesCounter;
     this._cardLikeButton = this._selector.querySelector('.card__button');
+    this._cardDeleteButton = this._selector.querySelector('.card__delete-button');
   };
 
   // Шаблон 1 карточки
@@ -32,18 +35,17 @@ export default class Card {
   }
 
   // Нужно ли обернуть (Проверка лайков пользователя)
-  _checkUserLikes() {//Не используется
+  _checkUserLikes() {
     if (this._likes.some((item) => item._id === this._ownerId)) {
-      this._cardLikeButton.classList.add('card__button_active');
     }
   }
 
   // Проверка принадлежит ли карточка пользователю
-  _checkUserCardId() {//Не используется
+  _checkUserCardId(data) {
     if (this._ownerId === this._userId) {
       this._selector.querySelector('.card__delete-button').classList.remove('card__delete-button_disabled');
       this._selector.querySelector('.card__delete-button').addEventListener('click', () => {
-        this._deleteCard();
+        this._handleDeleteCard(data);
       });
     } else {
       this._selector.querySelector('.card__delete-button').classList.add('card__delete-button_disabled');
@@ -57,20 +59,16 @@ export default class Card {
 
   // Добавление лайка ??????????????????????????????? Передается как колбек в index.js
   _addLike() {
-    //this._addLike(cardId) //Остановились здесь
     this._toggleLikeButton();
   }
 
   // Снятие лайка
   _deleteLike() {
-    //deleteLikeApi(cardId) //Остановились здесь
     this._toggleLikeButton();
   }
 
   // Удаление карточки
   _deleteCard() {
-    //deleteCardApi(cardId)
-    //this._getElement.remove();
     this._cardElement.remove();
   }
 
@@ -87,6 +85,10 @@ export default class Card {
         this._addLike();
       }
     });
+
+    this._cardDeleteButton.addEventListener('click', () => {
+      this._checkUserCardId();
+    });
   }
 
   // Заполненная разметка 1 карточки
@@ -99,8 +101,8 @@ export default class Card {
     this._element.querySelector('.card__like-counter').textContent = this._likes;
     this._element.querySelector('.card__image').alt = this._title;
 
-    this._checkUserCardId();
-    this._checkUserLikes();
+    // this._checkUserCardId();
+    // this._checkUserLikes();
 
     return this._element;
   }
@@ -108,7 +110,7 @@ export default class Card {
 
 // Старый код
 //***Функция создания карточки из шаблона***//
-export function createCard(link, name, likes, ownerId, [], cardId, addLike, deleteLike, deleteCard) {
+/* export function createCard(link, name, likes, ownerId, [], cardId, addLike, deleteLike, deleteCard) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
@@ -159,7 +161,7 @@ export function createCard(link, name, likes, ownerId, [], cardId, addLike, dele
   return cardElement;
 }
 
-//***Функция добавления карточки в DOM***//
+//Функция добавления карточки в DOM
 export function addCard(container, element) {
   container.prepend(element);
-}
+} */

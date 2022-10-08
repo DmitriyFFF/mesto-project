@@ -26,7 +26,8 @@ import {validateSettings,
         profileName,
         profileDescription,
         profileAvatar,
-        cardsGallery
+        cardsGallery,
+        openAddCardButton
 } from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
@@ -125,6 +126,8 @@ const popupCard = new PopupWithForm({
   handleSubmitForm: handleCardFormSubmit,
 });
 
+openAddCardButton.addEventListener('click', popupCard.open);
+
 const getCard = (result) => {
   const newCard = new Card({result,
     containerSelector: cardsGallery,
@@ -133,7 +136,8 @@ const getCard = (result) => {
       newCard.addItem(cardItem);
     },
     handleImageCard: handleImageCard,
-         
+    handleLikeCard: handleLikeCard,
+    handleDeleteCard: handleDeleteCard
   });
 
   return newCard;
@@ -159,12 +163,34 @@ function handleCardFormSubmit() {
     });
 }
 
-function handleLikeCard() {
-
+function handleLikeCard(result) {
+  if (newCard._checkUserLikes()) {
+    api.deleteLikeApi(result.id)
+      .then(() => {
+        newCard._deleteLike();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  } else {
+    api.addLikeApi(result.id)
+      .then(() => {
+        newCard._addLike();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 }
 
-function handleDeleateCard() {
-
+function handleDeleteCard(result) {
+  api.deleteCardApi(result.cardId)
+  .then(() => {
+    newCard._deleteCard();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 function handleImageCard() {
@@ -203,7 +229,7 @@ Promise.all([api.getProfile(), api.getInitialCards()])
 
 
 /***********************  Старый код  **********************/
-
+/* 
 //Функция добавления лайка
 export function addLike(cardId, likesCounter, likesButton) {
   addLikeApi(cardId)
@@ -243,7 +269,7 @@ function setProfileData(profileData, res) {
   profileData.avatar.src = res.avatar;
 }
 
-//***Функция сохранения информации о пользователе из формы***//
+//***Функция сохранения информации о пользователе из формы***
 function handleProfileFormSubmit (evt) {
   evt.preventDefault();
   renderLoading(profileSubmitButton, 'Сохранить', true);
@@ -262,7 +288,7 @@ function handleProfileFormSubmit (evt) {
     });
 }
 
-//***Функция добавления новой карточки из формы***//
+//***Функция добавления новой карточки из формы***
 function handleCardFormSubmit (evt) {
   evt.preventDefault();
   renderLoading(cardSubmitButton, 'Создать', true);
@@ -301,7 +327,7 @@ function handleAvatarFormSubmit(evt) {
     });
 }
 
-//***Получение данных о пользователе и загрузка карточек с сервера***//
+//***Получение данных о пользователе и загрузка карточек с сервера
 Promise.all([getProfile(), getInitialCards()])
   .then(([userData, cards]) => {
       setProfileData(profileData, userData);
@@ -315,10 +341,11 @@ Promise.all([getProfile(), getInitialCards()])
     console.log(err);
   });
 
-//***Обработка отправки форм***//
+//***Обработка отправки форм
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 formCards.addEventListener('submit', handleCardFormSubmit);
 formAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
-//***Валидация форм***//
+//***Валидация форм**
 enableValidation(validateSettings);
+ */

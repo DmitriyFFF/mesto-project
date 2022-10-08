@@ -8,24 +8,24 @@ export const cardSubmitButton = formCards.querySelector('.form__button');
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
 export const formAvatar = document.querySelector('.form_type_avatar');
-export const avatarInput = formAvatar.querySelector('.form__input_type_avatar')
+export const avatarInput = formAvatar.querySelector('.form__input_type_avatar');
 export const avatarSubmitButton = formAvatar.querySelector('.form__button');
 export const profileAvatar = document.querySelector('.profile__avatar');
-export const profileAvatarEdit = document.querySelector('.profile__avatar-edit');
+export const avatarEditButton = document.querySelector('.profile__avatar-edit');
 export const userNameInput = formProfile.querySelector('.form__input_type_name');
 export const aboutUserInput = formProfile.querySelector('.form__input_type_about');
 export const profileSubmitButton = formProfile.querySelector('.form__button');
 export const popupProfileSelector = document.querySelector('.popup_type_profile');
-export const popupCardSelector = document.querySelector('.popup_type_gallery');
+export const popupGallery = document.querySelector('.popup_type_gallery');
 export const popupAvatarSelector = document.querySelector('.popup_type_avatar');
-export const openProfileButton = document.querySelector('.profile__edit-button');
+export const profileEditButton = document.querySelector('.profile__edit-button');
 export const openAddCardButton = document.querySelector('.profile__add-card-button');
 
 /*константы из card.js */
 export const cardTemplate = document.querySelector('#card-template').content;
 export const popupImageSelector = document.querySelector('.popup_type_photo');
-export const popupImage = popupPhoto.querySelector('.popup__image');
-export const popupImageName = popupPhoto.querySelector('.popup__image-name');
+export const popupImage = popupImageSelector.querySelector('.popup__image');
+export const popupImageName = popupImageSelector.querySelector('.popup__image-name');
 
 /*константы из validate.js */
 export const validateSettings = {
@@ -46,7 +46,7 @@ export const profileData = {
 /*
 *Код из utils.js
 */
-import {closePopup} from '../components/modal.js';
+/* import {closePopup} from '../components/modal.js';
 
 export function handleEscapeKey (evt) {
   if(evt.key === 'Escape') {
@@ -67,7 +67,7 @@ export function renderLoading(button, textButton, isLoading) {
   } else {
     button.textContent = textButton;
   }
-}
+} */
 
 /*перенес в api.js
 export function checkResponse (res) {
@@ -77,7 +77,7 @@ export function checkResponse (res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }*/
 
-export function toggleLikeButton(result, likesCounter, likeButton) {
+/* export function toggleLikeButton(result, likesCounter, likeButton) {
   likesCounter.textContent = result.likes.length;
   likeButton.classList.toggle('card__button_active');
-}
+} */

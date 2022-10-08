@@ -94,7 +94,7 @@ export default class Api {
 /*Старый код */
 
 //Загрузка информации о пользователе с сервера
-export const getProfile = () => {
+/* export const getProfile = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'GET',
     headers: config.headers
@@ -174,4 +174,4 @@ export const patchAvatar = (avatarInput) => {
     })
   })
     .then(checkResponse);
-}
+} */
