@@ -2,7 +2,7 @@
   "name": "mesto-project",
   "version": "0.0.1",
   "description": "___ ## Адаптивная верстка с функциональностью на JavaScript ___ ### Описание проекта: Интерактивная страница, позволяющая, после заполнения формы регистрации,",
-  "main": "./components/index.js",
+  "main": "./pages/index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve",
