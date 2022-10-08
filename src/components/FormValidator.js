@@ -80,14 +80,14 @@ export default class FormValidator {
 
 // Старый код
 //***Функция, показывающая сообщение ошибки поля***//
-function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
+/* function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
 }
 
-//***Функция, скрывающая сообщение ошибки поля***//
+//***Функция, скрывающая сообщение ошибки поля
 function hideInputError(formElement, inputElement, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(inputErrorClass);
@@ -95,7 +95,7 @@ function hideInputError(formElement, inputElement, inputErrorClass, errorClass) 
   errorElement.textContent = '';
 }
 
-//***Функция проверки поля на валидность***//
+//***Функция проверки поля на валидность
 function isValid(formElement, inputElement) {
   if (inputElement.validity.patternMismatch) {
     inputElement.setCustomValidity(inputElement.dataset.errorMessage);
@@ -110,7 +110,7 @@ function isValid(formElement, inputElement) {
   }
 }
 
-//***Функция, добавляющая обработчики полям формы***//
+//***Функция, добавляющая обработчики полям формы
 function setEventListeners(formElement, inputSelector, submitButtonSelector) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector)
@@ -125,14 +125,14 @@ function setEventListeners(formElement, inputSelector, submitButtonSelector) {
   });
 }
 
-//***Функция проверки наличия невалидного поля***//
+//***Функция проверки наличия невалидного поля
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   })
 }
 
-//***Функция переключения состояния кнопки***//
+//***Функция переключения состояния кнопки
 function toggleButtonState(inputList, buttonElement) {
   if(hasInvalidInput(inputList)) {
     buttonElement.setAttribute('disabled',true);
@@ -141,7 +141,7 @@ function toggleButtonState(inputList, buttonElement) {
   }
 }
 
-//***Функция, добавляющая обработчики всем формам***//
+//***Функция, добавляющая обработчики всем формам
 export function enableValidation(validateSettings) {
   const formList = document.querySelectorAll(validateSettings.formSelector);
 
@@ -149,3 +149,4 @@ export function enableValidation(validateSettings) {
     setEventListeners(formElement, validateSettings.inputSelector, validateSettings.submitButtonSelector);
   });
 }
+ */

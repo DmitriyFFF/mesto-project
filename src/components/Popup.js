@@ -53,8 +53,8 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 }
-
-//***Функции открывания и закрывания форм по кнопкам ***//
+/* 
+//***Функции открывания и закрывания форм по кнопкам
 export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscapeKey);
@@ -72,7 +72,7 @@ export function disableButton (button) {
   button.disabled = true;
 }
 
-//***Открывание попапов***//
+//***Открывание попапов
 openProfileButton.addEventListener('click', () => {
   openPopup(popupProfile);
   userNameInput.value = profileName.textContent;
@@ -94,3 +94,4 @@ profileAvatar.addEventListener('mouseover', () => {
 profileAvatar.addEventListener('mouseout', () => {
   profileAvatarEdit.style.display = 'none';
 });
+ */

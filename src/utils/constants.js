@@ -22,7 +22,7 @@ export const profileEditButton = document.querySelector('.profile__edit-button')
 export const openAddCardButton = document.querySelector('.profile__add-card-button');
 
 /*константы из card.js */
-export const cardTemplate = document.querySelector('#card-template').content;
+export const cardTemplate = document.querySelector('#card-template');
 export const popupImageSelector = document.querySelector('.popup_type_photo');
 export const popupImage = popupImageSelector.querySelector('.popup__image');
 export const popupImageName = popupImageSelector.querySelector('.popup__image-name');

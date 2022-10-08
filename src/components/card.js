@@ -6,18 +6,18 @@ import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/c
 //Новый код
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, handleLikeCard, handleDeleteCard, userId, addLike) {
+  constructor(data, templateSelector, renderer, handleClickCard, handleLikeCard, handleDeleteCard, userId) {
     this._selector = templateSelector;
+    this._renderer = renderer;
     this._title = data.name;
     this._imageLink = data.link;
     this._ownerId = data.owner.id;
     this._cardId = data.id;
     this._likes = data.likes.length;
-    this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleClickCard;
     this._handleLikeCard = handleLikeCard;
     this._handdleDeleteCard = handleDeleteCard;
     this._userId = userId;
-    // this._addLike = addLike;
     this._likesCounter = likesCounter;
     this._cardLikeButton = this._selector.querySelector('.card__button');
     this._cardDeleteButton = this._selector.querySelector('.card__delete-button');
@@ -75,7 +75,7 @@ export default class Card {
   // Общие слушатели
   _setEventListeners() {
     this._selector.querySelector('.card__image').addEventListener('click', () => {
-      this._handleCardClick();
+      this._handleClickCard();
     });
 
     this._cardLikeButton.addEventListener('click', () => {

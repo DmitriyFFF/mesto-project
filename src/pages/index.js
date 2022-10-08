@@ -27,7 +27,8 @@ import {validateSettings,
         profileDescription,
         profileAvatar,
         cardsGallery,
-        openAddCardButton
+        openAddCardButton,
+        cardTemplate,
 } from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
@@ -129,15 +130,17 @@ const popupCard = new PopupWithForm({
 openAddCardButton.addEventListener('click', popupCard.open);
 
 const getCard = (result) => {
-  const newCard = new Card({result,
-    containerSelector: cardsGallery,
+  const newCard = new Card({
+    data: result,
+    templateSelector: cardTemplate,
     renderer: () => {
       const cardItem = popupCard.generate();
-      newCard.addItem(cardItem);
+      cards.addItem(cardItem);
     },
-    handleImageCard: handleImageCard,
+    handleClickCard: handleClickCard,
     handleLikeCard: handleLikeCard,
-    handleDeleteCard: handleDeleteCard
+    handleDeleteCard: handleDeleteCard,
+    userId: userId
   });
 
   return newCard;
@@ -193,19 +196,17 @@ function handleDeleteCard(result) {
   });
 }
 
-function handleImageCard() {
+function handleClickCard() {
   popupImage.open(result);
 }
 
-const cards = new Section (
-  {
+const cards = new Section ({
     containerSelector: cardsGallery, 
     renderer: () => {
       const cardItem = getCard(result);
       cards.addItem(cardItem);
     }
-  }
-);
+});
 
 //"Экземпляры класса FormValidator для всех форм"
 const formProfileValidator = new FormValidator(validateSettings, formProfile);
@@ -216,6 +217,14 @@ const formAvatarValidator = new FormValidator(validateSettings, formAvatar);
 formProfileValidator.enableValidation();
 formCardValidator.enableValidation();
 formAvatarValidator.enableValidation();
+
+// profileAvatar.addEventListener('mouseover', () => {
+//   profileAvatarEdit.style.display = 'block';
+// });
+
+// profileAvatar.addEventListener('mouseout', () => {
+//   profileAvatarEdit.style.display = 'none';
+// });
 
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
