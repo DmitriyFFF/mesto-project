@@ -16,14 +16,14 @@ export const userNameInput = formProfile.querySelector('.form__input_type_name')
 export const aboutUserInput = formProfile.querySelector('.form__input_type_about');
 export const profileSubmitButton = formProfile.querySelector('.form__button');
 export const popupProfileSelector = document.querySelector('.popup_type_profile');
-export const popupGallery = document.querySelector('.popup_type_gallery');
+export const popupCardSelector = document.querySelector('.popup_type_gallery');
 export const popupAvatarSelector = document.querySelector('.popup_type_avatar');
+export const popupImageSelector = document.querySelector('.popup_type_photo');
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const openAddCardButton = document.querySelector('.profile__add-card-button');
 
 /*константы из card.js */
 export const cardTemplate = document.querySelector('#card-template');
-export const popupImageSelector = document.querySelector('.popup_type_photo');
 export const popupImage = popupImageSelector.querySelector('.popup__image');
 export const popupImageName = popupImageSelector.querySelector('.popup__image-name');
 
@@ -37,11 +37,11 @@ export const validateSettings = {
 };
 
 /*константы из index.js */
-export const profileData = {
+/*export const profileData = {
   name: profileName,
   description: profileDescription,
   avatar: profileAvatar
-};
+};*/
 
 /*
 *Код из utils.js

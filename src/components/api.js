@@ -2,7 +2,7 @@
 
 export default class Api {
   constructor(config) {
-    this._url = config.url,
+    this._baseUrl = config.baseUrl,
     this._headers = config.headers
   }
 
@@ -14,7 +14,7 @@ export default class Api {
   }
 //Загрузка карточек с сервера
   getInitialCards() {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
       headers: this._headers
     })
@@ -22,7 +22,7 @@ export default class Api {
   }
 //Загрузка информации о пользователе с сервера
   getProfile() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers
     })
@@ -30,7 +30,7 @@ export default class Api {
   }
 //Редактирование профиля
   editProfile(nameInput, aboutInput) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -42,7 +42,7 @@ export default class Api {
   }
 //Добавление новой карточки
   addNewCard(urlCard, nameCard) {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -54,7 +54,7 @@ export default class Api {
   }
 //Запрос на удаление карточек пользователя
   deleteCardApi(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
     })
@@ -62,7 +62,7 @@ export default class Api {
   }
 //Добавление лайка
   addLikeApi(cardId) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this._headers
     })
@@ -70,7 +70,7 @@ export default class Api {
   }
 //Снятие лайка
   deleteLikeApi(cardId) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
     })
@@ -78,7 +78,7 @@ export default class Api {
   }
 //Редактирование аватара
   patchAvatar(avatarInput) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({

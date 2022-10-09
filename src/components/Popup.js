@@ -6,54 +6,57 @@ import { formProfile, cardsGallery, formCards, urlInput, namePlaceInput, cardSub
 export default class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
+    this._popup = document.querySelector(popupSelector);
+    //this._handleEscClose = this._handleEscClose.bind(this);
+  }
+
+  open() {
+    this._popup.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscClose);
+    //this.setEventListeners();
+  }
+
+  close() {
+    this._popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._handleEscClose);
+    //this.removeEventListeners();
   }
 
   _handleEscClose (evt) {
     if(evt.key === 'Escape') {
-      this.close(); //?
+      this.close();
     }
   }
 
-  // _handleClosePopupOverlay (evt) {
-  //   if((evt.target.E.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
-  //     this.close(evt.currentTarget);
-  //   }
-  // }
+   _handleClosePopupOverlay (evt) {
+     if((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
+       this.close(/*evt.currentTarget*/);
+     }
+   }
 
-  open() {
-    this._popupSelector.classList.add('popup_opened');
-    this.setEventListeners();
-  }
-
-  close() {
-    this._popupSelector.classList.remove('popup_opened');
-    this.removeEventListeners();
-  }
-
-// Слушатель клика по иконке закрытия popup
   setEventListeners() {
-    this._popupSelector.closest('.popup__close').addEventListener('click', () => {
+    /*this._popupSelector.closest('.popup__close').addEventListener('click', () => {
       this.close();
+    });*///Ругается на этот слушатель
+
+    this._popup.addEventListener('click', (evt) => {
+      this._handleClosePopupOverlay(evt);
     });
-    // ?
-    this._popupSelector.addEventListener('click', () => {
-      this.close();
-    });
-    document.addEventListener('keydown', this._handleEscClose);
+    //document.addEventListener('keydown', this._handleEscClose);
   }
 
-  removeEventListeners() {
-    this._popupSelector.closest('.popup__close').removeEventListener('click', () => {
+  /*removeEventListeners() {
+    this._popupElement.closest('.popup__close').removeEventListener('click', () => {
       this.close();
     });
 
-    this._popupSelector.removeEventListener('click', () => {
+    this._popupElement.removeEventListener('click', () => {
       this.close();
     });
     document.removeEventListener('keydown', this._handleEscClose);
-  }
+  }*/
 }
-/* 
+/*
 //***Функции открывания и закрывания форм по кнопкам
 export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
