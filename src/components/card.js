@@ -96,8 +96,9 @@ export default class Card {
     this._image = this._element.querySelector('.card__image');
     this._name = this._element.querySelector('.card__place') ;
     this._likeCounter = this._element.querySelector('.card__like-counter');
-    this._deleteButton = cardElement.querySelector('.card__delete-button');
-    this._likeButton = cardElement.querySelector('.card__button');
+    this._deleteButton = this._element.querySelector('.card__delete-button');
+    this._likeButton = this._element.querySelector('.card__button');
+
     this._image.src = this._imageLink;
     this._image.alt = this._title;
     this._name.textContent = this._title;
