@@ -8,13 +8,11 @@ export default class Section {
     this._container.innerHTML = '';
   }
 
-  renderItems(items) {
+  renderItems(items, userInfo) {
     this.clear();
 
-    items.forEach((item) => {
-      this._renderer(item);
-      // this.addItem(cardElement);
-      // this._renderer(item);
+    items.reverse().forEach((item) => {
+      this._renderer(item, userInfo);
     });
   }
 

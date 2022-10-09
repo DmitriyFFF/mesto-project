@@ -51,8 +51,8 @@ const api = new Api({
 
 
 const cards = new Section ({
-    renderer: (item) => {
-      const cardItem = getCard(item);
+    renderer: (item, userData) => {
+      const cardItem = getCard(item, userData);
       cards.addItem(cardItem);
     }},
     cardsContainerSelector
@@ -69,10 +69,11 @@ const userInfo = new UserInfo({
   profileAvatarSelector
 });
 
-const getCard = (data) => {
+const getCard = (data, userData) => {
   const card = new Card(
     data,
     cardTemplateSelector,
+    userData,
     handleCardClick,
     handleLikeCard,
     handleDeleteCard,
@@ -153,7 +154,7 @@ function handleCardFormSubmit() {
 
   api.addNewCard(urlInput, namePlaceInput)
     .then((result) => {
-      cards.addItem(getCard(result));
+      cards.addItem(getCard(result, userInfo.getUserInfo));
       /*const newCard = getCard(result);
       newCard.generate();
       newCard.renderer();*/
@@ -172,7 +173,7 @@ function handleLikeCard(cardElement) {
   if (cardElement._checkUserLikes()) {
     api.deleteLikeApi(cardElement._cardId)
       .then((result) => {
-        cardElement._deleteLike(result.likes.length);
+        cardElement._updateLikeState(result);
       })
       .catch((err) => {
         console.log(err);
@@ -180,7 +181,7 @@ function handleLikeCard(cardElement) {
   } else {
     api.addLikeApi(cardElement._cardId)
       .then((result) => {
-        cardElement._addLike(result.likes.length);
+        cardElement._updateLikeState(result);
       })
       .catch((err) => {
         console.log(err);
@@ -188,18 +189,19 @@ function handleLikeCard(cardElement) {
   }
 }
 
-function handleDeleteCard(card) {
-  api.deleteCardApi(card.cardId)
+function handleDeleteCard(cardElement) {
+  api.deleteCardApi(cardElement._cardId)
   .then(() => {
-    card._deleteCard();
+    console.log(cardElement._cardId);
+    cardElement._deleteCard();
   })
   .catch((err) => {
     console.log(err);
   });
 }
 
-function handleCardClick(/*result*/name, link) {
-  popupImage.open(/*result*/name, link);
+function handleCardClick(name, link) {
+  popupImage.open(name, link);
 }
 
 avatarEditButton.addEventListener('click', () => {
@@ -221,12 +223,12 @@ Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     userInfo.setUserInfo(userData);
     console.log(cardsData);
-    cards.renderItems(cardsData);
-    userId = userData._id;
+    cards.renderItems(cardsData, userData);
   })
   .catch((err) => {
     console.log(err);
   });
+
 
 //  profileAvatar.addEventListener('mouseover', () => {
 //   avatarEditButton.style.display = 'block';
