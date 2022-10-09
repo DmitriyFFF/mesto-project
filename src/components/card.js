@@ -11,8 +11,8 @@ export default class Card {
     //this._renderer = renderer;
     this._title = data.name;
     this._imageLink = data.link;
-    this._ownerId = data.owner.id;
-    this._cardId = data.id;
+    this._ownerId = data.owner._id;
+    this._cardId = data._id;
     this._likes = data.likes;
     this._userId = userId;
     this._handleCardClick = handleCardClick;
@@ -21,7 +21,7 @@ export default class Card {
     /*this._likesCounter = likesCounter;
     this._cardLikeButton = this._selector.querySelector('.card__button');
     this._cardDeleteButton = this._selector.querySelector('.card__delete-button');*/
-  };
+  }
 
   // Шаблон 1 карточки
   _getElement() {
@@ -35,11 +35,13 @@ export default class Card {
   }
 
   // Нужно ли обернуть (Проверка лайков пользователя)
-  /*_checkUserLikes() {
+  _checkUserLikes() {
     if (this._likes.some((item) => item._id === this._ownerId)) {
-    }
-  }*/
-
+      return true;}
+      else {
+      return false;}
+  }
+  
   // Проверка принадлежит ли карточка пользователю
   /*_checkUserCardId(data) {
     if (this._ownerId === this._userId) {
@@ -58,13 +60,13 @@ export default class Card {
   } //???*/
 
   // Добавление лайка ??????????????????????????????? Передается как колбек в index.js
-  addLike(likes) {
-    this._likeButton.classList.remove('card__button_active');
+  _addLike(likes) {
+    this._likeButton.classList.add('card__button_active');
     this._likeCounter.textContent = likes;
   }
 
   // Снятие лайка
-  deleteLike(likes) {
+  _deleteLike(likes) {
     this._likeButton.classList.remove('card__button_active');
     this._likeCounter.textContent = likes;
   }
@@ -81,7 +83,7 @@ export default class Card {
     });
 
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeCard(this, this.checkUserLikes)
+      this._handleLikeCard(this);
     });
 
     this._deleteButton.addEventListener('click', () => {
@@ -104,19 +106,7 @@ export default class Card {
     this._name.textContent = this._title;
     this._likeCounter.textContent = this._likes.length;
 
-    this.checkUserLikes = this._likes.some((item) => item._id === this._userId);
-
-    if (this._ownerId !== this._userId) {
-      this._deleteButton.remove();
-    }
-    if (this.checkUserLikes) {
-      this._likeButton.classList.add('card__button_active');
-    }
-
-    // this._checkUserCardId();
-    // this._checkUserLikes();
     this._setEventListeners();
-
     return this._element;
   }
 }

@@ -5,7 +5,7 @@ import '../pages/index.css';
 // import { renderLoading, toggleLikeButton } from '../utils/utils.js';
 // import { getInitialCards, getProfile, editProfile, addNewCard,  patchAvatar, addLikeApi, deleteLikeApi, deleteCardApi} from '../components/Api.js'
 // import {profileData} from '../utils/constants.js';
-export let userId;
+let userId;
 
 //Новый импорт
 import {validateSettings,
@@ -16,10 +16,11 @@ import {validateSettings,
         popupAvatarSelector,
         popupProfileSelector,
         popupCardSelector,
-        profileName,
-        profileDescription,
-        cardsGallery,
-        cardTemplate,
+        profileNameSelector,
+        profileDescriptionSelector,
+        profileAvatarSelector,
+        cardsContainerSelector,
+        cardTemplateSelector,
         avatarInput,
         avatarEditButton,
         userNameInput,
@@ -27,7 +28,6 @@ import {validateSettings,
         profileEditButton,
         urlInput,
         namePlaceInput,
-        profileAvatar,
         openAddCardButton
 } from '../utils/constants.js';
 import Api from '../components/Api.js';
@@ -50,21 +50,12 @@ const api = new Api({
 }); // Передать конфиг
 
 
-const cards = new Section (
-  {
-    //renderer: getCard
+const cards = new Section ({
     renderer: (item) => {
-      getCard(item);
-    },
-  },
-  //data: result,
-  /*renderer: (item) => {
-    //const newCard = new Card(item, '.card')
-    const card = getCard(item);
-    const cardItem = card.generate();
-    cards.addItem(cardItem);
-  }},*/
-  '.elements__gallery'
+      const cardItem = getCard(item);
+      cards.addItem(cardItem);
+    }},
+    cardsContainerSelector
 );
 
 //"Экземпляры класса FormValidator для всех форм"
@@ -73,15 +64,15 @@ const formCardValidator = new FormValidator(validateSettings,formCards);
 const formAvatarValidator = new FormValidator(validateSettings,formAvatar);
 
 const userInfo = new UserInfo({
-  profileName: '.profile__name',
-  profileDescription: '.profile__description',
-  profileAvatar: '.profile__avatar'
+  profileNameSelector,
+  profileDescriptionSelector,
+  profileAvatarSelector
 });
 
 const getCard = (data) => {
   const card = new Card(
     data,
-    '#card-template',
+    cardTemplateSelector,
     handleCardClick,
     handleLikeCard,
     handleDeleteCard,
@@ -177,23 +168,23 @@ function handleCardFormSubmit() {
     });
   }
 
-function handleLikeCard(card) {
-  if (card.checkUserLikes()) {
-    api.deleteLikeApi(card.cardId)
+function handleLikeCard(cardElement) {
+  if (cardElement._checkUserLikes()) {
+    api.deleteLikeApi(cardElement._cardId)
       .then((result) => {
-        card.deleteLike(result.likes.length);
+        cardElement._deleteLike(result.likes.length);
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   } else {
-    api.addLikeApi(card.cardId)
+    api.addLikeApi(cardElement._cardId)
       .then((result) => {
-        card._addLike(result.likes.length);
+        cardElement._addLike(result.likes.length);
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }
 }
 
@@ -229,6 +220,7 @@ openAddCardButton.addEventListener('click', () => {
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     userInfo.setUserInfo(userData);
+    console.log(cardsData);
     cards.renderItems(cardsData);
     userId = userData._id;
   })
@@ -236,142 +228,15 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     console.log(err);
   });
 
- profileAvatar.addEventListener('mouseover', () => {
-  avatarEditButton.style.display = 'block';
- });
+//  profileAvatar.addEventListener('mouseover', () => {
+//   avatarEditButton.style.display = 'block';
+//  });
 
- profileAvatar.addEventListener('mouseout', () => {
-  avatarEditButton.style.display = 'none';
- });
+//  profileAvatar.addEventListener('mouseout', () => {
+//   avatarEditButton.style.display = 'none';
+//  });
 
  //Валидация форм
 formProfileValidator.enableValidation();
 formCardValidator.enableValidation();
 formAvatarValidator.enableValidation();
-
-
-
-
-
-
-/***********************  Старый код  **********************/
-/*
-//Функция добавления лайка
-export function addLike(cardId, likesCounter, likesButton) {
-  addLikeApi(cardId)
-    .then((res) => {
-      toggleLikeButton(res, likesCounter, likesButton);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-//Функция снятия лайка
-export function deleteLike(cardId, likesCounter, likesButton) {
-  deleteLikeApi(cardId)
-    .then((res) => {
-      toggleLikeButton(res, likesCounter, likesButton);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-//Функция удаления карточек
-export function deleteCard(cardId, cardElement) {
-  deleteCardApi(cardId)
-    .then(() => {
-      cardElement.remove();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-function setProfileData(profileData, res) {
-  profileData.name.textContent = res.name;
-  profileData.description.textContent = res.about;
-  profileData.avatar.src = res.avatar;
-}
-
-//***Функция сохранения информации о пользователе из формы***
-function handleProfileFormSubmit (evt) {
-  evt.preventDefault();
-  renderLoading(profileSubmitButton, 'Сохранить', true);
-
-  editProfile(userNameInput, aboutUserInput)
-    .then((result) => {
-      setProfileData(profileData, result);
-      disableButton(profileSubmitButton);
-      closePopup(popupProfile);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(profileSubmitButton, 'Сохранить', false);
-    });
-}
-
-//***Функция добавления новой карточки из формы***
-function handleCardFormSubmit (evt) {
-  evt.preventDefault();
-  renderLoading(cardSubmitButton, 'Создать', true);
-
-  addNewCard(urlInput, namePlaceInput)
-    .then((result) => {
-      addCard(cardsGallery, createCard(result.link, result.name, result.likes, result.owner._id, [], result._id, addLike, deleteLike, deleteCard));
-      formCards.reset();
-      disableButton(cardSubmitButton);
-      closePopup(popupGallery);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(cardSubmitButton, 'Создать', false);
-    });
-}
-
-function handleAvatarFormSubmit(evt) {
-  evt.preventDefault();
-  renderLoading(avatarSubmitButton, 'Сохранить', true);
-
-  patchAvatar(avatarInput)
-    .then((result) => {
-      setProfileData(profileData, result);
-      formAvatar.reset();
-      disableButton(avatarSubmitButton);
-      closePopup(popupAvatar);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(avatarSubmitButton, 'Сохранить', false);
-    });
-}
-
-//***Получение данных о пользователе и загрузка карточек с сервера
-Promise.all([getProfile(), getInitialCards()])
-  .then(([userData, cards]) => {
-      setProfileData(profileData, userData);
-      userId = userData._id;
-      cards.forEach((item) => {
-        cards.renderer()
-        addCard(cardsGallery, createCard(item.link, item.name, item.likes, item.owner._id, [], item._id, addLike, deleteLike, deleteCard));
-      })
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-//***Обработка отправки форм
-formProfile.addEventListener('submit', handleProfileFormSubmit);
-formCards.addEventListener('submit', handleCardFormSubmit);
-formAvatar.addEventListener('submit', handleAvatarFormSubmit);
-
-//***Валидация форм**
-enableValidation(validateSettings);
- */
