@@ -66,10 +66,17 @@ export default class FormValidator {
   //***Функция переключения состояния кнопки***//
   _toggleButtonState() {
     if(this._hasInvalidInput()) {
-      this._buttonElement.setAttribute('disabled',true);//this._buttonElement???
+      this._buttonElement.setAttribute('disabled',true);
     } else {
-      this._buttonElement.removeAttribute('disabled');//this._buttonElement???
+      this._buttonElement.removeAttribute('disabled');
     }
+  }
+
+  resetFormValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
   }
 
   //***Функция, добавляющая обработчики всем формам***//

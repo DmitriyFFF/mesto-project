@@ -205,17 +205,20 @@ function handleCardClick(name, link) {
 }
 
 avatarEditButton.addEventListener('click', () => {
+  formAvatarValidator.resetFormValidation();
   popupAvatar.open();
 });
 
 profileEditButton.addEventListener('click', () => {
-  popupProfile.open();
   const userData = userInfo.getUserInfo();
   userNameInput.value = userData.name;
   aboutUserInput.value = userData.description;
+  formProfileValidator.resetFormValidation();
+  popupProfile.open();
 });
 
 openAddCardButton.addEventListener('click', () => {
+  formCardValidator.resetFormValidation();
   popupCard.open();
 });
 
