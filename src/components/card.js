@@ -1,16 +1,8 @@
-/*import { openPopup } from './modal.js';
-import { userId } from './index.js';
-import { Popup } from './Popup.js';
-import { cardTemplate, popupPhoto, popupImage, popupImageName } from '../utils/constants.js';*/
-
-//Новый код
-
 export default class Card {
-  constructor(data, templateSelector, userData, handleCardClick, handleLikeCard, handleDeleteCard, userId) {
+  constructor(data, templateSelector, userData, handleCardClick, handleLikeCard, handleDeleteCard/*, userId*/) {
     this._data = data;
     this._selector = templateSelector;
     this._userData = userData;
-    //this._renderer = renderer;
     this._title = data.name;
     this._imageLink = data.link;
     this._ownerId = data.owner._id;
@@ -20,9 +12,6 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleLikeCard = handleLikeCard;
     this._handleDeleteCard = handleDeleteCard;
-    /*this._likesCounter = likesCounter;
-    this._cardLikeButton = this._selector.querySelector('.card__button');
-    this._cardDeleteButton = this._selector.querySelector('.card__delete-button');*/
   }
 
   // Шаблон 1 карточки
@@ -38,12 +27,14 @@ export default class Card {
 
   // Нужно ли обернуть (Проверка лайков пользователя)
   _checkUserLikes() {
-    if (this._data.likes.some((like) => like._id === this._ownerId)) {
+    return this._data.likes.some((like) => like._id === this._ownerId);
+    /*if (this._data.likes.some((like) => like._id === this._ownerId)) {
       return true;}
       else {
       return false;}
+      Переделал через return*/
   }
-  
+
   // Проверка принадлежит ли карточка пользователю
   _checkUserCardId(data) {
     if (this._ownerId === this._userData._id) {
@@ -109,9 +100,10 @@ export default class Card {
     this._likeCounter.textContent = this._likes.length;
 
     this._checkUserCardId(this);
-    this._image.src = this._imageLink;
+    /*this._image.src = this._imageLink;
     this._image.alt = this._title;
     this._name.textContent = this._title;
+    Код дублируется*/
     this._updateLikeState(this._data);
 
 
