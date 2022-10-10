@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, templateSelector, userData, handleCardClick, handleLikeCard, handleDeleteCard/*, userId*/) {
+  constructor(data, templateSelector, userData, handleCardClick, handleLikeCard, handleDeleteCard) {
     this._data = data;
     this._selector = templateSelector;
     this._userData = userData;
@@ -27,9 +27,10 @@ export default class Card {
   // Нужно ли обернуть (Проверка лайков пользователя)
   _checkUserLikes() {
     if (this._data.likes.some((like) => like._id === this._userData._id)) {
-      return true;}
-      else {
-      return false;}
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Проверка принадлежит ли карточка пользователю
