@@ -36,10 +36,6 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  disableButton() {
-    this._submitButton.disabled = true;
-  }
-
   close() {
     super.close();
     this._formElement.reset();

@@ -93,7 +93,6 @@ function handleProfileFormSubmit() {
   api.editProfile(userNameInput, aboutUserInput)
     .then((result) => {
       userInfo.setUserInfo(result);
-      popupProfile.disableButton();
       popupProfile.close();
     })
     .catch((err) => {
@@ -117,7 +116,6 @@ function handleAvatarFormSubmit() {
   api.patchAvatar(avatarInput)
     .then((res) => {
       userInfo.setUserInfo(res);
-      popupAvatar.disableButton();
       popupAvatar.close();
     })
     .catch((err) => {
@@ -141,7 +139,6 @@ function handleCardFormSubmit() {
   api.addNewCard(urlInput, namePlaceInput)
     .then((result) => {
       cards.addItem(getCard(result, userInfo.getUserInfo()));
-      popupCard.disableButton();
       popupCard.close();
     })
     .catch((err) => {
@@ -154,10 +151,10 @@ function handleCardFormSubmit() {
 
 //Обработчики лайков, удаления карточки
 function handleLikeCard(cardElement) {
-  if (cardElement._checkUserLikes()) {
+  if (cardElement.checkUserLikes()) {
     api.deleteLikeApi(cardElement._cardId)
       .then((res) => {
-        cardElement._updateLikeState(res);
+        cardElement.updateLikeState(res);
       })
       .catch((err) => {
         console.log(err);
@@ -165,7 +162,7 @@ function handleLikeCard(cardElement) {
   } else {
     api.addLikeApi(cardElement._cardId)
       .then((res) => {
-        cardElement._updateLikeState(res);
+        cardElement.updateLikeState(res);
       })
       .catch((err) => {
         console.log(err);
@@ -176,7 +173,7 @@ function handleLikeCard(cardElement) {
 function handleDeleteCard(cardElement) {
   api.deleteCardApi(cardElement._cardId)
   .then(() => {
-    cardElement._deleteCard();
+    cardElement.deleteCard();
   })
   .catch((err) => {
     console.log(err);
@@ -185,7 +182,6 @@ function handleDeleteCard(cardElement) {
 //Слушатели кнопок открывания попапов
 avatarEditButton.addEventListener('click', () => {
   formAvatarValidator.resetFormValidation();
-  formAvatarValidator._toggleButtonState();
   popupAvatar.open();
 });
 
@@ -193,13 +189,12 @@ profileEditButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
   userNameInput.value = userData.name;
   aboutUserInput.value = userData.description;
-  //formProfileValidator.resetFormValidation();
+  formProfileValidator.resetFormValidation();
   popupProfile.open();
 });
 
 openAddCardButton.addEventListener('click', () => {
   formCardValidator.resetFormValidation();
-  formCardValidator._toggleButtonState();
   popupCard.open();
 });
 
@@ -216,7 +211,6 @@ profileAvatar.addEventListener('mouseover', () => {
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     userInfo.setUserInfo(userData);
-    // console.log(userInfo._user._id);
     cards.renderItems(cardsData, userData);
   })
   .catch((err) => {

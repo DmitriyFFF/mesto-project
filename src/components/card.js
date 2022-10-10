@@ -24,8 +24,8 @@ export default class Card {
     return cardElement;
   }
 
-  // Нужно ли обернуть (Проверка лайков пользователя)
-  _checkUserLikes() {
+  // Проверка лайков пользователя
+  checkUserLikes() {
     if (this._data.likes.some((like) => like._id === this._userData._id)) {
       return true;
     } else {
@@ -56,7 +56,7 @@ export default class Card {
   }
 
   // Удаление карточки
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
   }
 
@@ -64,10 +64,10 @@ export default class Card {
     this._likeCounter.textContent = data.likes.length || 0;
   }
 
-  _updateLikeState(data) {
+  updateLikeState(data) {
     this._data = data;
     this._setCounterLikes(data);
-    if (this._checkUserLikes()) {
+    if (this.checkUserLikes()) {
       this._addLike();
     } else {
       this._deleteLike();
@@ -85,7 +85,6 @@ export default class Card {
     });
   }
 
-
   // Заполненная разметка 1 карточки
   generate() {
     this._element = this._getElement();
@@ -102,7 +101,7 @@ export default class Card {
     this._likeCounter.textContent = this._likes.length;
 
     this._checkUserCardId(this);
-    this._updateLikeState(this._data);
+    this.updateLikeState(this._data);
 
     this._setEventListeners();
     return this._element;
