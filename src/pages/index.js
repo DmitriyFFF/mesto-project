@@ -115,8 +115,8 @@ function handleAvatarFormSubmit() {
   popupAvatar.renderLoading('Сохранить', true);
 
   api.patchAvatar(avatarInput)
-    .then((result) => {
-      userInfo.setUserInfo(result);
+    .then((res) => {
+      userInfo.setUserInfo(res);
       popupAvatar.disableButton();
       popupAvatar.close();
     })
@@ -140,7 +140,7 @@ function handleCardFormSubmit() {
 
   api.addNewCard(urlInput, namePlaceInput)
     .then((result) => {
-      cards.addItem(getCard(result, userInfo.getUserInfo));
+      cards.addItem(getCard(result, userInfo.getUserInfo()));
       popupCard.disableButton();
       popupCard.close();
     })
@@ -156,16 +156,16 @@ function handleCardFormSubmit() {
 function handleLikeCard(cardElement) {
   if (cardElement._checkUserLikes()) {
     api.deleteLikeApi(cardElement._cardId)
-      .then((result) => {
-        cardElement._updateLikeState(result);
+      .then((res) => {
+        cardElement._updateLikeState(res);
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
     api.addLikeApi(cardElement._cardId)
-      .then((result) => {
-        cardElement._updateLikeState(result);
+      .then((res) => {
+        cardElement._updateLikeState(res);
       })
       .catch((err) => {
         console.log(err);
@@ -216,6 +216,7 @@ profileAvatar.addEventListener('mouseover', () => {
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     userInfo.setUserInfo(userData);
+    // console.log(userInfo._user._id);
     cards.renderItems(cardsData, userData);
   })
   .catch((err) => {
