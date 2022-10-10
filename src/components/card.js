@@ -8,7 +8,6 @@ export default class Card {
     this._ownerId = data.owner._id;
     this._cardId = data._id;
     this._likes = data.likes;
-    // this._userId = userId;
     this._handleCardClick = handleCardClick;
     this._handleLikeCard = handleLikeCard;
     this._handleDeleteCard = handleDeleteCard;
@@ -27,12 +26,10 @@ export default class Card {
 
   // Нужно ли обернуть (Проверка лайков пользователя)
   _checkUserLikes() {
-    return this._data.likes.some((like) => like._id === this._ownerId);
-    /*if (this._data.likes.some((like) => like._id === this._ownerId)) {
+    if (this._data.likes.some((like) => like._id === this._userData._id)) {
       return true;}
       else {
       return false;}
-      Переделал через return*/
   }
 
   // Проверка принадлежит ли карточка пользователю
@@ -62,9 +59,13 @@ export default class Card {
     this._element.remove();
   }
 
+  _setCounterLikes(data) {
+    this._likeCounter.textContent = data.likes.length || 0;
+  }
+
   _updateLikeState(data) {
     this._data = data;
-    this._likeCounter.textContent = this._data.likes.length || 0;
+    this._setCounterLikes(data);
     if (this._checkUserLikes()) {
       this._addLike();
     } else {
@@ -100,12 +101,7 @@ export default class Card {
     this._likeCounter.textContent = this._likes.length;
 
     this._checkUserCardId(this);
-    /*this._image.src = this._imageLink;
-    this._image.alt = this._title;
-    this._name.textContent = this._title;
-    Код дублируется*/
     this._updateLikeState(this._data);
-
 
     this._setEventListeners();
     return this._element;
