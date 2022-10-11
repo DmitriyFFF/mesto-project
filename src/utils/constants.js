@@ -16,8 +16,8 @@ export const popupAvatarSelector = '.popup_type_avatar';
 export const popupImageSelector = '.popup_type_photo';
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const openAddCardButton = document.querySelector('.profile__add-card-button');
-export const popupImage = popupImageSelector.querySelector('.popup__image');
-export const popupImageName = popupImageSelector.querySelector('.popup__image-name');
+export const popupImage = document.querySelector('.popup__image');
+export const popupImageName = document.querySelector('.popup__image-name');
 export const profileAvatar = document.querySelector('.profile__avatar');
 
 export const cardTemplateSelector = '#card-template';

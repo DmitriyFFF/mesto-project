@@ -200,7 +200,6 @@ avatarEditButton.addEventListener('click', () => {
 
 profileEditButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
-  // formProfileValidator.resetFormValidation();
   formValidators['form_profile'].resetFormValidation();
   popupProfile.openEditForm({ data: {
     popupInputProfileName: userData.name,
