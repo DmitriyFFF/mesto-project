@@ -8,15 +8,18 @@ import {validateSettings,
         profileAvatarSelector,
         cardsContainerSelector,
         cardTemplateSelector,
-        avatarInput,
+        // avatarInput,
         avatarEditButton,
-        userNameInput,
-        aboutUserInput,
+        // userNameInput,
+        // aboutUserInput,
         profileEditButton,
         urlInput,
         namePlaceInput,
         openAddCardButton,
-        profileAvatar
+        profileAvatar,
+        popupAvatarSelector,
+        popupCardSelector,
+        popupProfileSelector
       } from '../utils/constants.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
@@ -25,7 +28,6 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
-let userId;
 
 //"Экземпляр класса Api"
 const api = new Api({
@@ -66,7 +68,6 @@ const getCard = (data, userData) => {
     handleCardClick,
     handleLikeCard,
     handleDeleteCard,
-    userId
   );
   const newCard = card.generate();
   return newCard;
@@ -82,15 +83,19 @@ function handleCardClick(name, link) {
 
 // Функциональность попапа редактирования профиля пользователя
 const popupProfile = new PopupWithForm(
-  '.popup_type_profile',
+  popupProfileSelector,
   handleProfileFormSubmit
 );
 popupProfile.setEventListeners();
 
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(formData) {
   popupProfile.renderLoading('Сохранить', true);
+  const {
+    popupInputProfileName: name,
+    popupInputProfileAbout: about
+  } = formData;
 
-  api.editProfile(userNameInput, aboutUserInput)
+  api.editProfile({name, about})
     .then((result) => {
       userInfo.setUserInfo(result);
       popupProfile.close();
@@ -105,15 +110,17 @@ function handleProfileFormSubmit() {
 
 // Функциональность попапа редактирования Аватара пользователя
 const popupAvatar = new PopupWithForm(
-  '.popup_type_avatar',
+  popupAvatarSelector,
   handleAvatarFormSubmit
 );
 popupAvatar.setEventListeners();
 
-function handleAvatarFormSubmit() {
+function handleAvatarFormSubmit(formData) {
   popupAvatar.renderLoading('Сохранить', true);
-
-  api.patchAvatar(avatarInput)
+  const {
+    popupInputAvatarPhoto: link,
+  } = formData;
+  api.patchAvatar({link})
     .then((res) => {
       userInfo.setUserInfo(res);
       popupAvatar.close();
@@ -127,16 +134,20 @@ function handleAvatarFormSubmit() {
 }
 
 // Функциональность попапа добавления новой карточки пользователя
-const popupCard = new PopupWithForm(
-  '.popup_type_gallery',
+const popupCard = new PopupWithForm (
+  popupCardSelector,
   handleCardFormSubmit
 );
 popupCard.setEventListeners();
 
-function handleCardFormSubmit() {
+function handleCardFormSubmit(formData) {
   popupCard.renderLoading('Создать', true);
+  const {
+    popupInputCardName: name,
+    popupInputCardImage: link
+  } = formData;
 
-  api.addNewCard(urlInput, namePlaceInput)
+  api.addNewCard({link, name})
     .then((result) => {
       cards.addItem(getCard(result, userInfo.getUserInfo()));
       popupCard.close();
@@ -186,9 +197,9 @@ avatarEditButton.addEventListener('click', () => {
 });
 
 profileEditButton.addEventListener('click', () => {
-  const userData = userInfo.getUserInfo();
-  userNameInput.value = userData.name;
-  aboutUserInput.value = userData.description;
+  const userData = userInfo.getUserInfo(); 
+  // userNameInput.value = userData.name;
+  // aboutUserInput.value = userData.description;
   formProfileValidator.resetFormValidation();
   popupProfile.open();
 });
