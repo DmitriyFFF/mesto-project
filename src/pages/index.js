@@ -1,20 +1,12 @@
 import '../pages/index.css';
 import {validateSettings,
-        formProfile,
-        formCards,
-        formAvatar,
         profileNameSelector,
         profileDescriptionSelector,
         profileAvatarSelector,
         cardsContainerSelector,
         cardTemplateSelector,
-        // avatarInput,
         avatarEditButton,
-        // userNameInput,
-        // aboutUserInput,
         profileEditButton,
-        urlInput,
-        namePlaceInput,
         openAddCardButton,
         profileAvatar,
         popupAvatarSelector,
@@ -48,9 +40,19 @@ const cards = new Section ({
 );
 
 //"Экземпляры класса FormValidator для всех форм"
-const formProfileValidator = new FormValidator(validateSettings,formProfile);
-const formCardValidator = new FormValidator(validateSettings,formCards);
-const formAvatarValidator = new FormValidator(validateSettings,formAvatar);
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
 
 //"Экземпляр класса UserInfo"
 const userInfo = new UserInfo({
@@ -191,13 +193,14 @@ function handleDeleteCard(cardElement) {
 
 //Слушатели кнопок открывания попапов
 avatarEditButton.addEventListener('click', () => {
-  formAvatarValidator.resetFormValidation();
+  formValidators['form_avatar'].resetFormValidation();
   popupAvatar.open();
 });
 
 profileEditButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
-  formProfileValidator.resetFormValidation();
+  // formProfileValidator.resetFormValidation();
+  formValidators['form_profile'].resetFormValidation();
   popupProfile.openEditForm({ data: {
     popupInputProfileName: userData.name,
     popupInputProfileAbout: userData.description
@@ -205,7 +208,7 @@ profileEditButton.addEventListener('click', () => {
 });
 
 openAddCardButton.addEventListener('click', () => {
-  formCardValidator.resetFormValidation();
+  formValidators['form_cards'].resetFormValidation();
   popupCard.open();
 });
 
@@ -229,6 +232,4 @@ Promise.all([api.getProfile(), api.getInitialCards()])
   });
 
  //Валидация форм
-formProfileValidator.enableValidation();
-formCardValidator.enableValidation();
-formAvatarValidator.enableValidation();
+ enableValidation(validateSettings);
