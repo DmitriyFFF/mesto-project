@@ -24,6 +24,10 @@ export default class Card {
     return cardElement;
   }
 
+  getId(){
+    return this._cardId;
+  }
+
   // Проверка лайков пользователя
   checkUserLikes() {
     if (this._data.likes.some((like) => like._id === this._userData._id)) {

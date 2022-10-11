@@ -152,7 +152,7 @@ function handleCardFormSubmit() {
 //Обработчики лайков, удаления карточки
 function handleLikeCard(cardElement) {
   if (cardElement.checkUserLikes()) {
-    api.deleteLikeApi(cardElement._cardId)
+    api.deleteLikeApi(cardElement.getId())
       .then((res) => {
         cardElement.updateLikeState(res);
       })
@@ -160,7 +160,7 @@ function handleLikeCard(cardElement) {
         console.log(err);
       });
   } else {
-    api.addLikeApi(cardElement._cardId)
+    api.addLikeApi(cardElement.getId())
       .then((res) => {
         cardElement.updateLikeState(res);
       })
