@@ -89,13 +89,12 @@ const popupProfile = new PopupWithForm(
 popupProfile.setEventListeners();
 
 function handleProfileFormSubmit(formData) {
-  popupProfile.renderLoading('Сохранить', true);
   const {
     popupInputProfileName: name,
     popupInputProfileAbout: about
   } = formData;
-
-  api.editProfile({name, about})
+  popupProfile.renderLoading(true);
+  api.editProfile({ name, about })
     .then((result) => {
       userInfo.setUserInfo(result);
       popupProfile.close();
@@ -116,10 +115,11 @@ const popupAvatar = new PopupWithForm(
 popupAvatar.setEventListeners();
 
 function handleAvatarFormSubmit(formData) {
-  popupAvatar.renderLoading('Сохранить', true);
+
   const {
     popupInputAvatarPhoto: link,
   } = formData;
+  popupAvatar.renderLoading(true);
   api.patchAvatar({link})
     .then((res) => {
       userInfo.setUserInfo(res);
@@ -141,13 +141,12 @@ const popupCard = new PopupWithForm (
 popupCard.setEventListeners();
 
 function handleCardFormSubmit(formData) {
-  popupCard.renderLoading('Создать', true);
   const {
     popupInputCardName: name,
     popupInputCardImage: link
   } = formData;
-
-  api.addNewCard({link, name})
+  popupCard.renderLoading(true);
+  api.addNewCard({ name, link })
     .then((result) => {
       cards.addItem(getCard(result, userInfo.getUserInfo()));
       popupCard.close();
@@ -197,7 +196,8 @@ avatarEditButton.addEventListener('click', () => {
 });
 
 profileEditButton.addEventListener('click', () => {
-  const userData = userInfo.getUserInfo(); 
+  const userData = userInfo.getUserInfo();
+  popupProfile.setInputValues(userData);
   // userNameInput.value = userData.name;
   // aboutUserInput.value = userData.description;
   formProfileValidator.resetFormValidation();

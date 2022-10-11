@@ -31,26 +31,20 @@ export default class Api {
   }
 
 //Редактирование профиля
-  editProfile(nameInput, aboutInput) {
+  editProfile({name, about}) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
-        name: nameInput.value,
-        about: aboutInput.value
-      })
+      body: JSON.stringify({ name, about })
     });
   }
 
 //Добавление новой карточки
-  addNewCard(urlCard, nameCard) {
+  addNewCard({name, link}) {
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({
-        name: nameCard.value,
-        link: urlCard.value
-      })
+      body: JSON.stringify({ name, link })
     });
   }
 
@@ -79,12 +73,12 @@ export default class Api {
   }
 
 //Редактирование аватара
-  patchAvatar(avatarInput) {
+  patchAvatar({link}) {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: `${avatarInput.value}`
+        avatar: `${ link }`
       })
     });
   }

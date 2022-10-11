@@ -18,6 +18,7 @@ export default class PopupWithForm extends Popup {
     });
 
     return this._formValues;
+    
   }
 
   setEventListeners() {
@@ -25,8 +26,15 @@ export default class PopupWithForm extends Popup {
 
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      // console.log(this._getInputValues());
       this._handleSubmitForm(this._getInputValues());
     })
+  }
+
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
   }
 
   renderLoading(isLoading, loadingText = 'Сохранение...') {
