@@ -11,6 +11,7 @@ import {validateSettings,
         profileAvatar,
         popupAvatarSelector,
         popupCardSelector,
+        popupImageSelector,
         popupProfileSelector
       } from '../utils/constants.js';
 import Api from '../components/Api.js';
@@ -76,7 +77,7 @@ const getCard = (data, userData) => {
 }
 
 // Функциональность попапа открытия изображения карточки
-const popupImage = new PopupWithImage('.popup_type_photo');
+const popupImage = new PopupWithImage(popupImageSelector);
 popupImage.setEventListeners();
 
 function handleCardClick(name, link) {
