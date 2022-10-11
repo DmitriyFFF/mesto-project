@@ -34,7 +34,7 @@ export default class Card {
   }
 
   // Проверка принадлежит ли карточка пользователю
-  _checkUserCardId(data) {
+  _handleDeleteButton(data) {
     if (this._ownerId === this._userData._id) {
       this._deleteButton.classList.remove('card__delete-button_disabled');
       this._deleteButton.addEventListener('click', () => {
@@ -60,13 +60,13 @@ export default class Card {
     this._element.remove();
   }
 
-  _setCounterLikes(data) {
-    this._likeCounter.textContent = data.likes.length || 0;
+  _setCounterLikes() {
+    this._likeCounter.textContent = this._data.likes.length || 0;
   }
 
   updateLikeState(data) {
     this._data = data;
-    this._setCounterLikes(data);
+    this._setCounterLikes();
     if (this.checkUserLikes()) {
       this._addLike();
     } else {
@@ -83,6 +83,8 @@ export default class Card {
     this._likeButton.addEventListener('click', () => {
       this._handleLikeCard(this);
     });
+
+    this._handleDeleteButton(this);
   }
 
   // Заполненная разметка 1 карточки
@@ -100,10 +102,9 @@ export default class Card {
     this._name.textContent = this._title;
     this._likeCounter.textContent = this._likes.length;
 
-    this._checkUserCardId(this);
     this.updateLikeState(this._data);
-
     this._setEventListeners();
+
     return this._element;
   }
 }

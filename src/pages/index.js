@@ -88,7 +88,7 @@ const popupProfile = new PopupWithForm(
 popupProfile.setEventListeners();
 
 function handleProfileFormSubmit() {
-  popupProfile.renderLoading('Сохранить', true);
+  popupProfile.renderLoading(true);
 
   api.editProfile(userNameInput, aboutUserInput)
     .then((result) => {
@@ -99,7 +99,7 @@ function handleProfileFormSubmit() {
       console.log(err);
     })
     .finally(() => {
-      popupProfile.renderLoading('Сохранить', false);
+      popupProfile.renderLoading(false);
     });
 }
 
@@ -111,7 +111,7 @@ const popupAvatar = new PopupWithForm(
 popupAvatar.setEventListeners();
 
 function handleAvatarFormSubmit() {
-  popupAvatar.renderLoading('Сохранить', true);
+  popupAvatar.renderLoading(true);
 
   api.patchAvatar(avatarInput)
     .then((res) => {
@@ -122,7 +122,7 @@ function handleAvatarFormSubmit() {
       console.log(err);
     })
     .finally(() => {
-      popupAvatar.renderLoading('Сохранить', false);
+      popupAvatar.renderLoading(false);
     });
 }
 
@@ -134,7 +134,7 @@ const popupCard = new PopupWithForm(
 popupCard.setEventListeners();
 
 function handleCardFormSubmit() {
-  popupCard.renderLoading('Создать', true);
+  popupCard.renderLoading(true);
 
   api.addNewCard(urlInput, namePlaceInput)
     .then((result) => {
@@ -145,7 +145,7 @@ function handleCardFormSubmit() {
       console.log(err);
     })
     .finally(() => {
-      popupCard.renderLoading('Создать', false);
+      popupCard.renderLoading(false);
     });
 }
 
