@@ -197,11 +197,11 @@ avatarEditButton.addEventListener('click', () => {
 
 profileEditButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
-  popupProfile.setInputValues(userData);
-  // userNameInput.value = userData.name;
-  // aboutUserInput.value = userData.description;
   formProfileValidator.resetFormValidation();
-  popupProfile.open();
+  popupProfile.openEditForm({ data: {
+    popupInputProfileName: userData.name,
+    popupInputProfileAbout: userData.description
+  }});
 });
 
 openAddCardButton.addEventListener('click', () => {
@@ -214,7 +214,7 @@ profileAvatar.addEventListener('mouseover', () => {
   avatarEditButton.style.display = 'block';
  });
 
- profileAvatar.addEventListener('mouseout', () => {
+profileAvatar.addEventListener('mouseout', () => {
   avatarEditButton.style.display = 'none';
  });
 
