@@ -104,7 +104,7 @@ function handleProfileFormSubmit(formData) {
       console.log(err);
     })
     .finally(() => {
-      popupProfile.renderLoading('Сохранить', false);
+      popupProfile.renderLoading(false);
     });
 }
 
@@ -129,7 +129,7 @@ function handleAvatarFormSubmit(formData) {
       console.log(err);
     })
     .finally(() => {
-      popupAvatar.renderLoading('Сохранить', false);
+      popupAvatar.renderLoading(false);
     });
 }
 
@@ -156,7 +156,7 @@ function handleCardFormSubmit(formData) {
       console.log(err);
     })
     .finally(() => {
-      popupCard.renderLoading('Создать', false);
+      popupCard.renderLoading(false);
     });
 }
 
