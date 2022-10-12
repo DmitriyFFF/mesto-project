@@ -43,7 +43,7 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  openEditForm({data}) {
+  open({data}) {
     super.open();
     if (data) this.setInputValues(data);
   }

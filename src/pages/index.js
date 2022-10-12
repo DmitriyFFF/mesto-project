@@ -184,7 +184,7 @@ function handleLikeCard(cardElement) {
 }
 
 function handleDeleteCard(cardElement) {
-  api.deleteCardApi(cardElement._cardId)
+  api.deleteCardApi(cardElement.getId())
   .then(() => {
     cardElement.deleteCard();
   })
@@ -195,13 +195,13 @@ function handleDeleteCard(cardElement) {
 //Слушатели кнопок открывания попапов
 avatarEditButton.addEventListener('click', () => {
   formValidators['form_avatar'].resetFormValidation();
-  popupAvatar.open();
+  popupAvatar.open({});
 });
 
 profileEditButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
   formValidators['form_profile'].resetFormValidation();
-  popupProfile.openEditForm({ data: {
+  popupProfile.open({ data: {
     popupInputProfileName: userData.name,
     popupInputProfileAbout: userData.description
   }});
@@ -209,7 +209,7 @@ profileEditButton.addEventListener('click', () => {
 
 openAddCardButton.addEventListener('click', () => {
   formValidators['form_cards'].resetFormValidation();
-  popupCard.open();
+  popupCard.open({});
 });
 
 //Слушатель наведения на аватар
